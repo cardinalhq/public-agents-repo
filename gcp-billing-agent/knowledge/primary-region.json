@@ -1,0 +1,10 @@
+{
+  "name": "primary-region",
+  "title": "Primary Region",
+  "description": "us-east1 is the primary region",
+  "scope_tags": {
+    "datasource_name": [
+      "google_cloud_monitoring"
+    ]
+  }
+}

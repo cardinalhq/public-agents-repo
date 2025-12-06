@@ -1,0 +1,26 @@
+{
+  "name": "cloud-sql-memory-utilization",
+  "text": "What is the Cloud SQL memory utilization",
+  "query_type": "gcp_monitoring",
+  "query": "metric.type=\"cloudsql.googleapis.com/database/memory/utilization\"",
+  "status": "private",
+  "meta": {
+    "query_info": {
+      "api_path": "/v3/projects/ap-lakerunner/timeSeries",
+      "base_url": "https://monitoring.googleapis.com",
+      "filter": "metric.type=\"cloudsql.googleapis.com/database/memory/utilization\"",
+      "group_by": null,
+      "list_params": {
+        "filter": "metric.type=\"cloudsql.googleapis.com/database/memory/utilization\"",
+        "interval": {
+          "endTime": "2025-11-21T13:58:28Z",
+          "startTime": "2025-11-14T13:58:28Z"
+        }
+      },
+      "project": "projects/ap-lakerunner",
+      "query_type": "filter",
+      "step_seconds": 1800
+    }
+  },
+  "datasource_name": "google_cloud_monitoring"
+}

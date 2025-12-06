@@ -1,0 +1,55 @@
+{
+  "name": "bigquery-expensive-queries",
+  "text": "What are my most expensive Google BigQuery queries and why are they expensive?",
+  "query_type": "bigquery_sql",
+  "query": "\nWITH expensive_queries AS (\n  SELECT \n    job_id,\n    creation_time,\n    user_email,\n    project_id,\n    state,\n    total_bytes_billed,\n    total_bytes_processed,\n    total_slot_ms,\n    TIMESTAMP_DIFF(end_time, start_time, SECOND) as duration_seconds,\n    cache_hit,\n    query,\n    -- Calculate estimated cost (BigQuery costs $6.25 per TB processed in on-demand pricing)\n    ROUND((total_bytes_billed / POW(10, 12)) * 6.25, 2) as estimated_cost_usd,\n    -- Calculate slot hours for compute cost analysis\n    ROUND(total_slot_ms / (1000 * 60 * 60), 2) as slot_hours\n  FROM `region-us.INFORMATION_SCHEMA.JOBS`\n  WHERE \n    job_type = 'QUERY'\n    AND state = 'DONE'\n    AND creation_time \u003e= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 30 DAY)\n    AND total_bytes_billed \u003e 0\n  ORDER BY total_bytes_billed DESC\n  LIMIT 20\n)\nSELECT \n  job_id,\n  creation_time,\n  user_email,\n  project_id,\n  estimated_cost_usd,\n  ROUND(total_bytes_billed / POW(10, 9), 2) as gb_billed,\n  ROUND(total_bytes_processed / POW(10, 9), 2) as gb_processed,\n  slot_hours,\n  duration_seconds,\n  cache_hit,\n  CASE \n    WHEN cache_hit THEN 'Cached (No cost)'\n    WHEN total_bytes_billed \u003e 1000000000000 THEN 'Very Large Scan (\u003e1TB)'\n    WHEN total_bytes_billed \u003e 100000000000 THEN 'Large Scan (\u003e100GB)'\n    WHEN slot_hours \u003e 10 THEN 'High Compute Cost'\n    ELSE 'Normal'\n  END as cost_driver,\n  LEFT(query, 200) as query_preview\nFROM expensive_queries\nORDER BY estimated_cost_usd DESC\n",
+  "status": "private",
+  "meta": {
+    "sql_description": "Show the top {result_limit} most expensive BigQuery queries from the last {lookback_days} days with status {job_state}, filtering for queries with bytes billed greater than {min_bytes_billed}. Categorizes queries by cost drivers using thresholds: very large scans (\u003e{very_large_scan_bytes} bytes), large scans (\u003e{large_scan_bytes} bytes), and high compute (\u003e{high_slot_hours} slot hours). Preview shows first {query_preview_length} characters of each query.",
+    "sql_flow_diagram": "flowchart TD\n    Q[\"Question: What are my most expensive\u003cbr/\u003eGoogle BigQuery queries and why\u003cbr/\u003eare they expensive?\"]\n    T1[(\"INFORMATION_SCHEMA.JOBS\u003cbr/\u003eregion-us\")]\n    \n    F1{\"Filter:\u003cbr/\u003ejob_type = 'QUERY'\u003cbr/\u003estate = 'DONE'\u003cbr/\u003eLast 30 days\u003cbr/\u003etotal_bytes_billed \u003e 0\"}\n    \n    CALC1[\"Calculate Metrics:\u003cbr/\u003e- estimated_cost_usd = bytes_billed/TB * $6.25\u003cbr/\u003e- duration_seconds\u003cbr/\u003e- slot_hours\"]\n    \n    SORT1{\"Sort by\u003cbr/\u003etotal_bytes_billed DESC\u003cbr/\u003eLIMIT 20\"}\n    \n    CTE[\"CTE: expensive_queries\"]\n    \n    CALC2[\"Transform Data:\u003cbr/\u003e- Convert bytes to GB\u003cbr/\u003e- Keep slot_hours, duration\u003cbr/\u003e- Truncate query preview\"]\n    \n    CASE{\"Categorize cost_driver:\u003cbr/\u003e- Cached (No cost)\u003cbr/\u003e- Very Large Scan (\u003e1TB)\u003cbr/\u003e- Large Scan (\u003e100GB)\u003cbr/\u003e- High Compute Cost\u003cbr/\u003e- Normal\"}\n    \n    SORT2{\"Sort by\u003cbr/\u003eestimated_cost_usd DESC\"}\n    \n    R[\"Result: Top 20 most expensive queries\u003cbr/\u003ewith cost breakdown, metrics,\u003cbr/\u003eand expense reason classification\"]\n    \n    Q --\u003e T1\n    T1 --\u003e F1\n    F1 --\u003e CALC1\n    CALC1 --\u003e SORT1\n    SORT1 --\u003e CTE\n    CTE --\u003e CALC2\n    CALC2 --\u003e CASE\n    CASE --\u003e SORT2\n    SORT2 --\u003e R",
+    "sql_placeholders": [
+      {
+        "name": "job_state",
+        "original_value": "DONE",
+        "type": "string"
+      },
+      {
+        "name": "lookback_days",
+        "original_value": "30",
+        "type": "int"
+      },
+      {
+        "name": "min_bytes_billed",
+        "original_value": "0",
+        "type": "int"
+      },
+      {
+        "name": "result_limit",
+        "original_value": "20",
+        "type": "int"
+      },
+      {
+        "name": "very_large_scan_bytes",
+        "original_value": "1000000000000",
+        "type": "int"
+      },
+      {
+        "name": "large_scan_bytes",
+        "original_value": "100000000000",
+        "type": "int"
+      },
+      {
+        "name": "high_slot_hours",
+        "original_value": "10",
+        "type": "int"
+      },
+      {
+        "name": "query_preview_length",
+        "original_value": "200",
+        "type": "int"
+      }
+    ],
+    "sql_template": "WITH expensive_queries AS (\n  SELECT \n    job_id,\n    creation_time,\n    user_email,\n    project_id,\n    state,\n    total_bytes_billed,\n    total_bytes_processed,\n    total_slot_ms,\n    TIMESTAMP_DIFF(end_time, start_time, SECOND) as duration_seconds,\n    cache_hit,\n    query,\n    -- Calculate estimated cost (BigQuery costs $6.25 per TB processed in on-demand pricing)\n    ROUND((total_bytes_billed / POW(10, 12)) * 6.25, 2) as estimated_cost_usd,\n    -- Calculate slot hours for compute cost analysis\n    ROUND(total_slot_ms / (1000 * 60 * 60), 2) as slot_hours\n  FROM `region-us.INFORMATION_SCHEMA.JOBS`\n  WHERE \n    job_type = 'QUERY'\n    AND state = ?\n    AND creation_time \u003e= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL ? DAY)\n    AND total_bytes_billed \u003e ?\n  ORDER BY total_bytes_billed DESC\n  LIMIT ?\n)\nSELECT \n  job_id,\n  creation_time,\n  user_email,\n  project_id,\n  estimated_cost_usd,\n  ROUND(total_bytes_billed / POW(10, 9), 2) as gb_billed,\n  ROUND(total_bytes_processed / POW(10, 9), 2) as gb_processed,\n  slot_hours,\n  duration_seconds,\n  cache_hit,\n  CASE \n    WHEN cache_hit THEN 'Cached (No cost)'\n    WHEN total_bytes_billed \u003e ? THEN 'Very Large Scan (\u003e1TB)'\n    WHEN total_bytes_billed \u003e ? THEN 'Large Scan (\u003e100GB)'\n    WHEN slot_hours \u003e ? THEN 'High Compute Cost'\n    ELSE 'Normal'\n  END as cost_driver,\n  LEFT(query, ?) as query_preview\nFROM expensive_queries\nORDER BY estimated_cost_usd DESC"
+  },
+  "datasource_name": "bigquery_query_insights"
+}

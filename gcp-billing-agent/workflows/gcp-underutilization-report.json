@@ -1,0 +1,31 @@
+{
+  "objective": "Analyze cloud billing data to identify underutilized services and generate cost optimization recommendations",
+  "steps": [
+    "- Query BigQuery billing data to identify top cost contributors by project",
+    "- Examine Google Cloud Monitoring metrics to determine utilization rates for each service type",
+    "- Calculate utilization percentages for services using CPU, memory, and usage metrics",
+    "- Identify services with utilization below threshold as underutilized",
+    "- Calculate daily costs, projected monthly costs, and potential savings for underutilized services",
+    "- Generate remediation recommendations for each underutilized service",
+    "- Compile findings into actionable cost optimization report with prioritized action items",
+    "- Send concise summary report via Slack to the #alerts-test channel"
+  ],
+  "guardrails": [
+    "- Define underutilized services as those with less than threshold utilization",
+    "- Include specific attributes for each underutilized service: Service, Utilization %, Daily Cost, Projected Monthly Cost, Remediation Recommendation, Savings",
+    "- Generate concise, to-the-point, actionable report",
+    "- Focus on services that show clear underutilization with quantifiable savings potential"
+  ],
+  "reports": [
+    "gcp-billing-cost-analysis"
+  ],
+  "knowledge": [],
+  "schedule": "0 0 * * *",
+  "cloudProvider": "gcp",
+  "deploymentProfile": "production",
+  "desiredState": "active",
+  "actualState": "active",
+  "projectId": "kk-agent-workflow-testing",
+  "cloudRunJobId": "projects/kk-agent-workflow-testing/locations/us-central1/jobs/cardinalhq-gcp-billing-agent-gcp-underutilization-report",
+  "cloudSchedulerId": "projects/kk-agent-workflow-testing/locations/us-central1/jobs/cardinalhq-gcp-billing-agent-gcp-underutilization-report-scheduler"
+}

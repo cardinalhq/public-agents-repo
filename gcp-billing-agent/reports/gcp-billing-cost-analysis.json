@@ -1,0 +1,58 @@
+{
+  "name": "gcp-billing-cost-analysis",
+  "text": "Find top cost contributors by GCP project ID and service type from billing data",
+  "query_type": "bigquery_sql",
+  "query": "SELECT \n  project.id as project_id,\n  service.description as service_type,\n  sku.description as sku_description,\n  SUM(cost) as total_cost_last_7days,\n  SUM(cost) / 7 as daily_cost,\n  (SUM(cost) / 7) * 30 as projected_monthly_cost,\n  COUNT(*) as cost_entries,\n  location.location as location\nFROM `chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC`\nWHERE cost \u003e 0\n  AND DATE(usage_start_time) \u003e= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)\nGROUP BY project_id, service_type, sku_description, location\nHAVING daily_cost \u003e 0.10\nORDER BY total_cost_last_7days DESC\nLIMIT 50",
+  "status": "private",
+  "meta": {
+    "description": "Show GCP billing summary by project, service, SKU, and location for costs greater than {min_cost} over the last {lookback_days} days, filtering to items with daily cost above {min_daily_cost}, limited to top {max_results} results",
+    "placeholders": [
+      {
+        "name": "min_cost",
+        "original_value": "0",
+        "type": "double"
+      },
+      {
+        "name": "lookback_days",
+        "original_value": "7",
+        "type": "int"
+      },
+      {
+        "name": "min_daily_cost",
+        "original_value": "0.10",
+        "type": "double"
+      },
+      {
+        "name": "max_results",
+        "original_value": "50",
+        "type": "int"
+      }
+    ],
+    "sql_description": "Show GCP billing breakdown by project, service, SKU, and location for the last {lookback_days} days, filtering costs above {min_cost} and daily costs above {min_daily_cost}, limited to top {result_limit} results",
+    "sql_flow_diagram": "flowchart TD\n    Q[\"Question: Find top cost contributors by GCP project ID and service type from billing data\"]\n    T1[(\"gcp_billing_export_v1_01D01E_9B88C7_8078BC\")]\n    \n    F1{\"Filter: cost \u003e 0\"}\n    F2{\"Filter: DATE(usage_start_time) \u003e= last 7 days\"}\n    \n    P1[\"Extract Fields:\u003cbr/\u003e- project.id\u003cbr/\u003e- service.description\u003cbr/\u003e- sku.description\u003cbr/\u003e- location.location\"]\n    \n    AGG{\"Aggregate:\u003cbr/\u003eSUM(cost)\u003cbr/\u003eCOUNT(*)\u003cbr/\u003eCalculate daily_cost\u003cbr/\u003eCalculate projected_monthly_cost\"}\n    \n    G1{\"GROUP BY:\u003cbr/\u003eproject_id, service_type,\u003cbr/\u003esku_description, location\"}\n    \n    H1{\"HAVING:\u003cbr/\u003edaily_cost \u003e 0.10\"}\n    \n    S1{\"ORDER BY:\u003cbr/\u003etotal_cost_last_7days DESC\u003cbr/\u003eLIMIT 50\"}\n    \n    R[\"Result: Top 50 cost contributors\u003cbr/\u003ewith project, service, costs,\u003cbr/\u003eprojections and location\"]\n    \n    Q --\u003e T1\n    T1 --\u003e F1\n    F1 --\u003e F2\n    F2 --\u003e P1\n    P1 --\u003e AGG\n    AGG --\u003e G1\n    G1 --\u003e H1\n    H1 --\u003e S1\n    S1 --\u003e R",
+    "sql_placeholders": [
+      {
+        "name": "min_cost",
+        "original_value": "0",
+        "type": "double"
+      },
+      {
+        "name": "lookback_days",
+        "original_value": "7",
+        "type": "int"
+      },
+      {
+        "name": "min_daily_cost",
+        "original_value": "0.10",
+        "type": "double"
+      },
+      {
+        "name": "result_limit",
+        "original_value": "50",
+        "type": "int"
+      }
+    ],
+    "sql_template": "SELECT \n  project.id as project_id,\n  service.description as service_type,\n  sku.description as sku_description,\n  SUM(cost) as total_cost_last_7days,\n  SUM(cost) / 7 as daily_cost,\n  (SUM(cost) / 7) * 30 as projected_monthly_cost,\n  COUNT(*) as cost_entries,\n  location.location as location\nFROM `chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC`\nWHERE cost \u003e ?\n  AND DATE(usage_start_time) \u003e= DATE_SUB(CURRENT_DATE(), INTERVAL ? DAY)\nGROUP BY project_id, service_type, sku_description, location\nHAVING daily_cost \u003e ?\nORDER BY total_cost_last_7days DESC\nLIMIT ?"
+  },
+  "datasource_name": "google_bigquery"
+}

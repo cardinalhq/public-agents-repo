@@ -1,0 +1,566 @@
+{
+  "type": "bigquery",
+  "config": {
+    "categories": [
+      {
+        "description": "Contains 2 tables from: chip_billing",
+        "graph": {
+          "edges": {
+            "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC": [
+              {
+                "cols": [
+                  [
+                    "adjustment_info",
+                    "adjustment_info"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "invoice",
+                    "invoice"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "billing_account_id",
+                    "billing_account_id"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "sku",
+                    "sku"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "usage",
+                    "usage"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "location",
+                    "location"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "transaction_type",
+                    "transaction_type"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "cost_type",
+                    "cost_type"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "consumption_model",
+                    "consumption_model"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "system_labels",
+                    "system_labels"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "currency",
+                    "currency"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "service",
+                    "service"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "tags",
+                    "tags"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "seller_name",
+                    "seller_name"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "credits",
+                    "credits"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "project",
+                    "project"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "labels",
+                    "labels"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "price",
+                    "price"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+              }
+            ],
+            "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC": [
+              {
+                "cols": [
+                  [
+                    "project",
+                    "project"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "location",
+                    "location"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "price",
+                    "price"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "transaction_type",
+                    "transaction_type"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "currency",
+                    "currency"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "invoice",
+                    "invoice"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "cost_type",
+                    "cost_type"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "sku",
+                    "sku"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "system_labels",
+                    "system_labels"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "seller_name",
+                    "seller_name"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "usage",
+                    "usage"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "adjustment_info",
+                    "adjustment_info"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "consumption_model",
+                    "consumption_model"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "tags",
+                    "tags"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "credits",
+                    "credits"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "billing_account_id",
+                    "billing_account_id"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "service",
+                    "service"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              },
+              {
+                "cols": [
+                  [
+                    "labels",
+                    "labels"
+                  ]
+                ],
+                "confidence": 1,
+                "from": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+                "kind": "HEURISTIC",
+                "note": "name similarity",
+                "to": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC"
+              }
+            ]
+          },
+          "nodes": {
+            "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC": {
+              "ID": "chip_billing.gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+              "columns": {
+                "_PARTITIONTIME": "TIMESTAMP",
+                "adjustment_info": "STRUCT\u003cid STRING, description STRING, mode STRING, type STRING\u003e",
+                "billing_account_id": "STRING",
+                "consumption_model": "STRUCT\u003cid STRING, description STRING\u003e",
+                "cost": "FLOAT64",
+                "cost_at_effective_price_default": "FLOAT64",
+                "cost_at_list": "FLOAT64",
+                "cost_at_list_consumption_model": "FLOAT64",
+                "cost_type": "STRING",
+                "credits": "ARRAY\u003cSTRUCT\u003cname STRING, amount FLOAT64, full_name STRING, id STRING, type STRING\u003e\u003e",
+                "currency": "STRING",
+                "currency_conversion_rate": "FLOAT64",
+                "export_time": "TIMESTAMP",
+                "invoice": "STRUCT\u003cmonth STRING, publisher_type STRING\u003e",
+                "labels": "ARRAY\u003cSTRUCT\u003ckey STRING, value STRING\u003e\u003e",
+                "location": "STRUCT\u003clocation STRING, country STRING, region STRING, zone STRING\u003e",
+                "price": "STRUCT\u003ceffective_price NUMERIC, tier_start_amount NUMERIC, unit STRING, pricing_unit_quantity NUMERIC, list_price NUMERIC, effective_price_default NUMERIC, list_price_consumption_model NUMERIC\u003e",
+                "project": "STRUCT\u003cid STRING, number STRING, name STRING, labels ARRAY\u003cSTRUCT\u003ckey STRING, value STRING\u003e\u003e, ancestry_numbers STRING, ancestors ARRAY\u003cSTRUCT\u003cresource_name STRING, display_name STRING\u003e\u003e\u003e",
+                "resource": "STRUCT\u003cname STRING, global_name STRING\u003e",
+                "seller_name": "STRING",
+                "service": "STRUCT\u003cid STRING, description STRING\u003e",
+                "sku": "STRUCT\u003cid STRING, description STRING\u003e",
+                "subscription": "STRUCT\u003cinstance_id STRING\u003e",
+                "system_labels": "ARRAY\u003cSTRUCT\u003ckey STRING, value STRING\u003e\u003e",
+                "tags": "ARRAY\u003cSTRUCT\u003ckey STRING, value STRING, inherited BOOL, namespace STRING\u003e\u003e",
+                "transaction_type": "STRING",
+                "usage": "STRUCT\u003camount FLOAT64, unit STRING, amount_in_pricing_units FLOAT64, pricing_unit STRING\u003e",
+                "usage_end_time": "TIMESTAMP",
+                "usage_start_time": "TIMESTAMP"
+              }
+            },
+            "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC": {
+              "ID": "chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC",
+              "columns": {
+                "_PARTITIONTIME": "TIMESTAMP",
+                "adjustment_info": "STRUCT\u003cid STRING, description STRING, mode STRING, type STRING\u003e",
+                "billing_account_id": "STRING",
+                "consumption_model": "STRUCT\u003cid STRING, description STRING\u003e",
+                "cost": "FLOAT64",
+                "cost_at_effective_price_default": "FLOAT64",
+                "cost_at_list": "FLOAT64",
+                "cost_at_list_consumption_model": "FLOAT64",
+                "cost_type": "STRING",
+                "credits": "ARRAY\u003cSTRUCT\u003cname STRING, amount FLOAT64, full_name STRING, id STRING, type STRING\u003e\u003e",
+                "currency": "STRING",
+                "currency_conversion_rate": "FLOAT64",
+                "export_time": "TIMESTAMP",
+                "invoice": "STRUCT\u003cmonth STRING, publisher_type STRING\u003e",
+                "labels": "ARRAY\u003cSTRUCT\u003ckey STRING, value STRING\u003e\u003e",
+                "location": "STRUCT\u003clocation STRING, country STRING, region STRING, zone STRING\u003e",
+                "price": "STRUCT\u003ceffective_price NUMERIC, tier_start_amount NUMERIC, unit STRING, pricing_unit_quantity NUMERIC, list_price NUMERIC, effective_price_default NUMERIC, list_price_consumption_model NUMERIC\u003e",
+                "project": "STRUCT\u003cid STRING, number STRING, name STRING, labels ARRAY\u003cSTRUCT\u003ckey STRING, value STRING\u003e\u003e, ancestry_numbers STRING, ancestors ARRAY\u003cSTRUCT\u003cresource_name STRING, display_name STRING\u003e\u003e\u003e",
+                "seller_name": "STRING",
+                "service": "STRUCT\u003cid STRING, description STRING\u003e",
+                "sku": "STRUCT\u003cid STRING, description STRING\u003e",
+                "system_labels": "ARRAY\u003cSTRUCT\u003ckey STRING, value STRING\u003e\u003e",
+                "tags": "ARRAY\u003cSTRUCT\u003ckey STRING, value STRING, inherited BOOL, namespace STRING\u003e\u003e",
+                "transaction_type": "STRING",
+                "usage": "STRUCT\u003camount FLOAT64, unit STRING, amount_in_pricing_units FLOAT64, pricing_unit STRING\u003e",
+                "usage_end_time": "TIMESTAMP",
+                "usage_start_time": "TIMESTAMP"
+              }
+            }
+          }
+        },
+        "id": "category-1",
+        "name": "Component 1"
+      }
+    ],
+    "datasetIds": [
+      "chip_billing"
+    ],
+    "projectId": "chip-473401",
+    "tablesByDataset": {
+      "chip_billing": [
+        "gcp_billing_export_resource_v1_01D01E_9B88C7_8078BC",
+        "gcp_billing_export_v1_01D01E_9B88C7_8078BC"
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "kafka-cpu-utilization",
+  "text": "Managed Kafka CPU utilization",
+  "query_type": "gcp_monitoring",
+  "query": "metric.type=\"managedkafka.googleapis.com/cpu/core_usage_time\"",
+  "status": "private",
+  "meta": {
+    "query_info": {
+      "api_path": "/v3/projects/ap-lakerunner/timeSeries",
+      "base_url": "https://monitoring.googleapis.com",
+      "filter": "metric.type=\"managedkafka.googleapis.com/cpu/core_usage_time\"",
+      "group_by": null,
+      "list_params": {
+        "filter": "metric.type=\"managedkafka.googleapis.com/cpu/core_usage_time\"",
+        "interval": {
+          "endTime": "2025-11-22T18:47:24Z",
+          "startTime": "2025-11-15T18:47:24Z"
+        }
+      },
+      "project": "projects/ap-lakerunner",
+      "query_type": "filter",
+      "step_seconds": 1800
+    }
+  },
+  "datasource_name": "google_cloud_monitoring"
+}

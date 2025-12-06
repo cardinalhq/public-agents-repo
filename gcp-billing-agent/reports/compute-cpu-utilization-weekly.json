@@ -1,0 +1,28 @@
+{
+  "name": "compute-cpu-utilization-weekly",
+  "text": "Compute Engine CPU utilization average over last 7 days",
+  "query_type": "gcp_monitoring",
+  "query": "metric.type=\"compute.googleapis.com/instance/cpu/utilization\"",
+  "status": "private",
+  "meta": {
+    "query_info": {
+      "api_path": "/v3/projects/ap-lakerunner/timeSeries",
+      "base_url": "https://monitoring.googleapis.com",
+      "filter": "metric.type=\"compute.googleapis.com/instance/cpu/utilization\"",
+      "group_by": [
+        "resource.instance_id"
+      ],
+      "list_params": {
+        "filter": "metric.type=\"compute.googleapis.com/instance/cpu/utilization\"",
+        "interval": {
+          "endTime": "2025-11-21T21:35:23Z",
+          "startTime": "2025-11-14T21:35:23Z"
+        }
+      },
+      "project": "projects/ap-lakerunner",
+      "query_type": "filter",
+      "step_seconds": 1800
+    }
+  },
+  "datasource_name": "google_cloud_monitoring"
+}

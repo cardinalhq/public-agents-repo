@@ -1,0 +1,8 @@
+{
+  "name": "kafka-cpu-limits",
+  "text": "Managed Kafka CPU limit",
+  "query_type": "gcp_monitoring",
+  "query": "metric.type=\"managedkafka.googleapis.com/cpu/limit\"",
+  "meta": {},
+  "datasource_name": "google_cloud_monitoring"
+}

@@ -1,0 +1,797 @@
+{
+  "type": "bigquery-query-insights",
+  "config": {
+    "categories": [
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.SHARED_DATASET_USAGE": {
+              "ID": "region-us.INFORMATION_SCHEMA.SHARED_DATASET_USAGE",
+              "columns": {
+                "change_time": "TIMESTAMP",
+                "dataset_id": "STRING",
+                "job_id": "STRING",
+                "job_project_id": "STRING",
+                "job_project_number": "INT64",
+                "project_id": "STRING",
+                "table_id": "STRING",
+                "total_bytes_processed": "INT64",
+                "total_slot_ms": "INT64"
+              }
+            }
+          }
+        },
+        "id": "category-1",
+        "name": "Component 1"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.JOBS_BY_FOLDER": {
+              "ID": "region-us.INFORMATION_SCHEMA.JOBS_BY_FOLDER",
+              "columns": {
+                "cache_hit": "BOOL",
+                "creation_time": "TIMESTAMP",
+                "end_time": "TIMESTAMP",
+                "job_id": "STRING",
+                "job_type": "STRING",
+                "priority": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "query": "STRING",
+                "reservation_id": "STRING",
+                "start_time": "TIMESTAMP",
+                "state": "STRING",
+                "statement_type": "STRING",
+                "total_bytes_billed": "INT64",
+                "total_bytes_processed": "INT64",
+                "total_slot_ms": "INT64",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-2",
+        "name": "Component 2"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.JOBS_TIMELINE": {
+              "ID": "region-us.INFORMATION_SCHEMA.JOBS_TIMELINE",
+              "columns": {
+                "cache_hit": "BOOL",
+                "job_creation_time": "TIMESTAMP",
+                "job_end_time": "TIMESTAMP",
+                "job_id": "STRING",
+                "job_start_time": "TIMESTAMP",
+                "job_type": "STRING",
+                "period_shuffle_ram_usage_ratio": "FLOAT64",
+                "period_slot_ms": "INT64",
+                "period_start": "TIMESTAMP",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "reservation_id": "STRING",
+                "state": "STRING",
+                "statement_type": "STRING",
+                "total_bytes_billed": "INT64",
+                "total_bytes_processed": "INT64",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-3",
+        "name": "Component 3"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.TABLE_STORAGE_USAGE_TIMELINE": {
+              "ID": "region-us.INFORMATION_SCHEMA.TABLE_STORAGE_USAGE_TIMELINE",
+              "columns": {
+                "active_logical_bytes": "INT64",
+                "deleted": "BOOL",
+                "long_term_logical_bytes": "INT64",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "table_catalog": "STRING",
+                "table_name": "STRING",
+                "table_schema": "STRING",
+                "total_billable_bytes": "INT64",
+                "total_logical_bytes": "INT64",
+                "total_physical_bytes": "INT64",
+                "usage_date": "DATE"
+              }
+            }
+          }
+        },
+        "id": "category-4",
+        "name": "Component 4"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.STREAMING_TIMELINE": {
+              "ID": "region-us.INFORMATION_SCHEMA.STREAMING_TIMELINE",
+              "columns": {
+                "dataset_id": "STRING",
+                "error_code": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "start_timestamp": "TIMESTAMP",
+                "table_id": "STRING",
+                "total_input_bytes": "INT64",
+                "total_requests": "INT64",
+                "total_rows": "INT64"
+              }
+            }
+          }
+        },
+        "id": "category-5",
+        "name": "Component 5"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.SESSIONS_BY_PROJECT": {
+              "ID": "region-us.INFORMATION_SCHEMA.SESSIONS_BY_PROJECT",
+              "columns": {
+                "creation_time": "TIMESTAMP",
+                "is_active": "BOOL",
+                "last_modified_time": "TIMESTAMP",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "session_id": "STRING",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-6",
+        "name": "Component 6"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.PROJECT_OPTIONS": {
+              "ID": "region-us.INFORMATION_SCHEMA.PROJECT_OPTIONS",
+              "columns": {
+                "option_name": "STRING",
+                "option_value": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64"
+              }
+            }
+          }
+        },
+        "id": "category-7",
+        "name": "Component 7"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.PROJECT_OPTIONS_CHANGES": {
+              "ID": "region-us.INFORMATION_SCHEMA.PROJECT_OPTIONS_CHANGES",
+              "columns": {
+                "action": "STRING",
+                "change_timestamp": "TIMESTAMP",
+                "option_name": "STRING",
+                "option_value": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-8",
+        "name": "Component 8"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.SCHEMATA": {
+              "ID": "region-us.INFORMATION_SCHEMA.SCHEMATA",
+              "columns": {
+                "catalog_name": "STRING",
+                "creation_time": "TIMESTAMP",
+                "ddl": "STRING",
+                "default_collation_name": "STRING",
+                "last_modified_time": "TIMESTAMP",
+                "location": "STRING",
+                "schema_name": "STRING",
+                "schema_owner": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-9",
+        "name": "Component 9"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.CAPACITY_COMMITMENT_CHANGES": {
+              "ID": "region-us.INFORMATION_SCHEMA.CAPACITY_COMMITMENT_CHANGES",
+              "columns": {
+                "action": "STRING",
+                "capacity_commitment_id": "STRING",
+                "change_timestamp": "TIMESTAMP",
+                "commitment_plan": "STRING",
+                "edition": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "slot_count": "INT64",
+                "state": "STRING",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-10",
+        "name": "Component 10"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.STREAMING_TIMELINE_BY_FOLDER": {
+              "ID": "region-us.INFORMATION_SCHEMA.STREAMING_TIMELINE_BY_FOLDER",
+              "columns": {
+                "dataset_id": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "start_timestamp": "TIMESTAMP",
+                "table_id": "STRING",
+                "total_input_bytes": "INT64",
+                "total_requests": "INT64",
+                "total_rows": "INT64"
+              }
+            }
+          }
+        },
+        "id": "category-11",
+        "name": "Component 11"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.INSIGHTS": {
+              "ID": "region-us.INFORMATION_SCHEMA.INSIGHTS",
+              "columns": {
+                "category": "STRING",
+                "insight_id": "STRING",
+                "insight_type": "STRING",
+                "last_refresh_time": "TIMESTAMP",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "severity": "STRING",
+                "state": "STRING",
+                "subtype": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-12",
+        "name": "Component 12"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.ASSIGNMENTS": {
+              "ID": "region-us.INFORMATION_SCHEMA.ASSIGNMENTS",
+              "columns": {
+                "assignee_id": "STRING",
+                "assignee_number": "INT64",
+                "assignee_type": "STRING",
+                "assignment_id": "STRING",
+                "ddl": "STRING",
+                "job_type": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "reservation_name": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-13",
+        "name": "Component 13"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.WRITE_API_TIMELINE": {
+              "ID": "region-us.INFORMATION_SCHEMA.WRITE_API_TIMELINE",
+              "columns": {
+                "dataset_id": "STRING",
+                "error_code": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "start_timestamp": "TIMESTAMP",
+                "stream_type": "STRING",
+                "table_id": "STRING",
+                "total_input_bytes": "INT64",
+                "total_requests": "INT64",
+                "total_rows": "INT64"
+              }
+            }
+          }
+        },
+        "id": "category-14",
+        "name": "Component 14"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.OBJECT_PRIVILEGES": {
+              "ID": "region-us.INFORMATION_SCHEMA.OBJECT_PRIVILEGES",
+              "columns": {
+                "grantee": "STRING",
+                "object_catalog": "STRING",
+                "object_name": "STRING",
+                "object_schema": "STRING",
+                "object_type": "STRING",
+                "privilege_type": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-15",
+        "name": "Component 15"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.EFFECTIVE_PROJECT_OPTIONS": {
+              "ID": "region-us.INFORMATION_SCHEMA.EFFECTIVE_PROJECT_OPTIONS",
+              "columns": {
+                "option_name": "STRING",
+                "option_source": "STRING",
+                "option_value": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64"
+              }
+            }
+          }
+        },
+        "id": "category-16",
+        "name": "Component 16"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.RESERVATION_CHANGES": {
+              "ID": "region-us.INFORMATION_SCHEMA.RESERVATION_CHANGES",
+              "columns": {
+                "action": "STRING",
+                "change_timestamp": "TIMESTAMP",
+                "edition": "STRING",
+                "ignore_idle_slots": "BOOL",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "reservation_name": "STRING",
+                "slot_capacity": "INT64",
+                "target_job_concurrency": "INT64",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-17",
+        "name": "Component 17"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.TABLE_STORAGE_BY_ORGANIZATION": {
+              "ID": "region-us.INFORMATION_SCHEMA.TABLE_STORAGE_BY_ORGANIZATION",
+              "columns": {
+                "active_logical_bytes": "INT64",
+                "creation_time": "TIMESTAMP",
+                "long_term_logical_bytes": "INT64",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "table_catalog": "STRING",
+                "table_name": "STRING",
+                "table_schema": "STRING",
+                "table_type": "STRING",
+                "total_billable_bytes": "INT64",
+                "total_logical_bytes": "INT64",
+                "total_partitions": "INT64",
+                "total_physical_bytes": "INT64",
+                "total_rows": "INT64"
+              }
+            }
+          }
+        },
+        "id": "category-18",
+        "name": "Component 18"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.RESERVATIONS": {
+              "ID": "region-us.INFORMATION_SCHEMA.RESERVATIONS",
+              "columns": {
+                "ddl": "STRING",
+                "edition": "STRING",
+                "ignore_idle_slots": "BOOL",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "reservation_name": "STRING",
+                "slot_capacity": "INT64",
+                "target_job_concurrency": "INT64"
+              }
+            }
+          }
+        },
+        "id": "category-19",
+        "name": "Component 19"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.SESSIONS_BY_USER": {
+              "ID": "region-us.INFORMATION_SCHEMA.SESSIONS_BY_USER",
+              "columns": {
+                "creation_time": "TIMESTAMP",
+                "is_active": "BOOL",
+                "last_modified_time": "TIMESTAMP",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "session_id": "STRING",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-20",
+        "name": "Component 20"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.RECOMMENDATIONS": {
+              "ID": "region-us.INFORMATION_SCHEMA.RECOMMENDATIONS",
+              "columns": {
+                "last_refresh_time": "TIMESTAMP",
+                "priority": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "recommendation_id": "STRING",
+                "recommender": "STRING",
+                "state": "STRING",
+                "subtype": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-21",
+        "name": "Component 21"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.BI_CAPACITY_CHANGES": {
+              "ID": "region-us.INFORMATION_SCHEMA.BI_CAPACITY_CHANGES",
+              "columns": {
+                "action": "STRING",
+                "bi_capacity_name": "STRING",
+                "change_timestamp": "TIMESTAMP",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "size_gb": "INT64",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-22",
+        "name": "Component 22"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.SCHEMATA_OPTIONS": {
+              "ID": "region-us.INFORMATION_SCHEMA.SCHEMATA_OPTIONS",
+              "columns": {
+                "catalog_name": "STRING",
+                "option_name": "STRING",
+                "option_type": "STRING",
+                "option_value": "STRING",
+                "schema_name": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-23",
+        "name": "Component 23"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.JOBS": {
+              "ID": "region-us.INFORMATION_SCHEMA.JOBS",
+              "columns": {
+                "cache_hit": "BOOL",
+                "creation_time": "TIMESTAMP",
+                "edition": "STRING",
+                "end_time": "TIMESTAMP",
+                "job_id": "STRING",
+                "job_type": "STRING",
+                "parent_job_id": "STRING",
+                "priority": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "query": "STRING",
+                "reservation_id": "STRING",
+                "start_time": "TIMESTAMP",
+                "state": "STRING",
+                "statement_type": "STRING",
+                "total_bytes_billed": "INT64",
+                "total_bytes_processed": "INT64",
+                "total_modified_partitions": "INT64",
+                "total_slot_ms": "INT64",
+                "transaction_id": "STRING",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-24",
+        "name": "Component 24"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.TABLE_STORAGE": {
+              "ID": "region-us.INFORMATION_SCHEMA.TABLE_STORAGE",
+              "columns": {
+                "active_billable_bytes": "INT64",
+                "active_logical_bytes": "INT64",
+                "active_physical_bytes": "INT64",
+                "creation_time": "TIMESTAMP",
+                "deleted": "BOOL",
+                "fail_safe_physical_bytes": "INT64",
+                "long_term_billable_bytes": "INT64",
+                "long_term_logical_bytes": "INT64",
+                "long_term_physical_bytes": "INT64",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "table_catalog": "STRING",
+                "table_name": "STRING",
+                "table_schema": "STRING",
+                "table_type": "STRING",
+                "time_travel_physical_bytes": "INT64",
+                "total_billable_bytes": "INT64",
+                "total_logical_bytes": "INT64",
+                "total_partitions": "INT64",
+                "total_physical_bytes": "INT64",
+                "total_rows": "INT64"
+              }
+            }
+          }
+        },
+        "id": "category-25",
+        "name": "Component 25"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.BI_CAPACITIES": {
+              "ID": "region-us.INFORMATION_SCHEMA.BI_CAPACITIES",
+              "columns": {
+                "bi_capacity_name": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "size_gb": "INT64"
+              }
+            }
+          }
+        },
+        "id": "category-26",
+        "name": "Component 26"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.JOBS_TIMELINE_BY_USER": {
+              "ID": "region-us.INFORMATION_SCHEMA.JOBS_TIMELINE_BY_USER",
+              "columns": {
+                "cache_hit": "BOOL",
+                "job_creation_time": "TIMESTAMP",
+                "job_end_time": "TIMESTAMP",
+                "job_id": "STRING",
+                "job_start_time": "TIMESTAMP",
+                "job_type": "STRING",
+                "period_slot_ms": "INT64",
+                "period_start": "TIMESTAMP",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "reservation_id": "STRING",
+                "state": "STRING",
+                "statement_type": "STRING",
+                "total_bytes_billed": "INT64",
+                "total_bytes_processed": "INT64",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-27",
+        "name": "Component 27"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.CAPACITY_COMMITMENTS": {
+              "ID": "region-us.INFORMATION_SCHEMA.CAPACITY_COMMITMENTS",
+              "columns": {
+                "capacity_commitment_id": "STRING",
+                "commitment_plan": "STRING",
+                "ddl": "STRING",
+                "edition": "STRING",
+                "is_flat_rate": "BOOL",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "slot_count": "INT64",
+                "state": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-28",
+        "name": "Component 28"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.ASSIGNMENT_CHANGES": {
+              "ID": "region-us.INFORMATION_SCHEMA.ASSIGNMENT_CHANGES",
+              "columns": {
+                "action": "STRING",
+                "assignee_id": "STRING",
+                "assignee_number": "INT64",
+                "assignee_type": "STRING",
+                "assignment_id": "STRING",
+                "change_timestamp": "TIMESTAMP",
+                "job_type": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "reservation_name": "STRING",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-29",
+        "name": "Component 29"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.JOBS_BY_USER": {
+              "ID": "region-us.INFORMATION_SCHEMA.JOBS_BY_USER",
+              "columns": {
+                "cache_hit": "BOOL",
+                "creation_time": "TIMESTAMP",
+                "end_time": "TIMESTAMP",
+                "job_id": "STRING",
+                "job_type": "STRING",
+                "parent_job_id": "STRING",
+                "priority": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "query": "STRING",
+                "reservation_id": "STRING",
+                "start_time": "TIMESTAMP",
+                "state": "STRING",
+                "statement_type": "STRING",
+                "total_bytes_billed": "INT64",
+                "total_bytes_processed": "INT64",
+                "total_modified_partitions": "INT64",
+                "total_slot_ms": "INT64",
+                "transaction_id": "STRING",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-30",
+        "name": "Component 30"
+      },
+      {
+        "description": "Contains 1 tables from: ",
+        "graph": {
+          "edges": {},
+          "nodes": {
+            "region-us.INFORMATION_SCHEMA.JOBS_BY_ORGANIZATION": {
+              "ID": "region-us.INFORMATION_SCHEMA.JOBS_BY_ORGANIZATION",
+              "columns": {
+                "cache_hit": "BOOL",
+                "creation_time": "TIMESTAMP",
+                "end_time": "TIMESTAMP",
+                "job_id": "STRING",
+                "job_type": "STRING",
+                "project_id": "STRING",
+                "project_number": "INT64",
+                "query": "STRING",
+                "reservation_id": "STRING",
+                "start_time": "TIMESTAMP",
+                "state": "STRING",
+                "statement_type": "STRING",
+                "total_bytes_billed": "INT64",
+                "total_bytes_processed": "INT64",
+                "total_slot_ms": "INT64",
+                "user_email": "STRING"
+              }
+            }
+          }
+        },
+        "id": "category-31",
+        "name": "Component 31"
+      }
+    ],
+    "projectId": "chip-473401"
+  }
+}
