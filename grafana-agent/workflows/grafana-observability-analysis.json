@@ -1,0 +1,28 @@
+{
+  "objective": "Analyze observability data from Grafana stack (Loki, Mimir, Tempo) to identify system health issues and generate monitoring insights",
+  "steps": [
+    "- Query Grafana Loki for log analysis and error pattern detection",
+    "- Retrieve metrics from Grafana Mimir to analyze system performance trends",
+    "- Examine distributed traces from Grafana Tempo for request flow analysis",
+    "- Identify anomalies in error rates, response times, and resource utilization",
+    "- Correlate logs, metrics, and traces to pinpoint root causes of issues",
+    "- Calculate service level indicators (SLI) and service level objectives (SLO) compliance",
+    "- Generate recommendations for improving system observability and performance",
+    "- Compile findings into comprehensive observability health report"
+  ],
+  "guardrails": [
+    "- Define SLI/SLO thresholds for error rates, latency, and availability",
+    "- Include specific details for each identified issue: Service, Issue Type, Severity, Root Cause, Recommendation",
+    "- Generate actionable observability improvement recommendations",
+    "- Focus on issues that impact system reliability and user experience"
+  ],
+  "reports": [
+    "grafana-observability-health"
+  ],
+  "knowledge": [],
+  "schedule": "0 */6 * * *",
+  "cloudProvider": "agnostic",
+  "deploymentProfile": "production",
+  "desiredState": "active",
+  "actualState": "inactive"
+}

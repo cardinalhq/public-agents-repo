@@ -1,0 +1,27 @@
+{
+  "objective": "Monitor application and infrastructure performance using Datadog metrics to identify performance bottlenecks and generate optimization recommendations",
+  "steps": [
+    "- Query Datadog metrics to collect system performance data including CPU, memory, and disk utilization",
+    "- Analyze application performance metrics such as response times, throughput, and error rates",
+    "- Identify performance bottlenecks and anomalies in the infrastructure",
+    "- Calculate performance trends and compare against baseline thresholds",
+    "- Generate optimization recommendations for underperforming services",
+    "- Compile findings into actionable performance monitoring report",
+    "- Alert on critical performance issues that require immediate attention"
+  ],
+  "guardrails": [
+    "- Define performance thresholds for CPU, memory, and application response times",
+    "- Include specific metrics for each identified bottleneck: Service, Metric Type, Current Value, Threshold, Recommendation",
+    "- Generate concise, actionable performance optimization recommendations",
+    "- Focus on performance issues that have measurable impact on user experience"
+  ],
+  "reports": [
+    "datadog-performance-analysis"
+  ],
+  "knowledge": [],
+  "schedule": "0 */4 * * *",
+  "cloudProvider": "agnostic",
+  "deploymentProfile": "production",
+  "desiredState": "active",
+  "actualState": "inactive"
+}
