@@ -1,0 +1,5 @@
+{
+  "type": "slack",
+  "config": {},
+  "shared_secrets": true
+}

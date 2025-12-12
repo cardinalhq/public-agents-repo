@@ -1,0 +1,20 @@
+{
+  "name": "cloudtrail-latest-events",
+  "text": "What is the most recent CloudTrail event data available?",
+  "query_type": "snowflake_sql",
+  "query": "SELECT \n    MAX(EVENTTIME) as most_recent_event,\n    MIN(EVENTTIME) as oldest_event,\n    COUNT(*) as total_events,\n    COUNT(DISTINCT EVENTNAME) as unique_event_types\nFROM SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\nWHERE EVENTTIME \u003e= DATEADD(hour, -1, CURRENT_TIMESTAMP())",
+  "status": "private",
+  "meta": {
+    "sql_description": "Show CloudTrail event summary statistics (most recent, oldest, total count, and unique event types) for events within the last {lookback_hours} hours",
+    "sql_flow_diagram": "flowchart TD\n    Q[\"Question: What is the most recent CloudTrail event data available?\"]\n    T1[(\"SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\")]\n    F1{\"Filter: EVENTTIME \u003e= DATEADD(hour, -1, CURRENT_TIMESTAMP())\"}\n    AGG{\"Aggregations:\u003cbr/\u003eMAX(EVENTTIME)\u003cbr/\u003eMIN(EVENTTIME)\u003cbr/\u003eCOUNT(*)\u003cbr/\u003eCOUNT(DISTINCT EVENTNAME)\"}\n    R[\"Result:\u003cbr/\u003e- Most Recent Event\u003cbr/\u003e- Oldest Event (last hour)\u003cbr/\u003e- Total Events\u003cbr/\u003e- Unique Event Types\"]\n    \n    Q --\u003e T1\n    T1 --\u003e F1\n    F1 --\u003e AGG\n    AGG --\u003e R",
+    "sql_placeholders": [
+      {
+        "name": "lookback_hours",
+        "original_value": "-1",
+        "type": "int"
+      }
+    ],
+    "sql_template": "SELECT \n    MAX(EVENTTIME) as most_recent_event,\n    MIN(EVENTTIME) as oldest_event,\n    COUNT(*) as total_events,\n    COUNT(DISTINCT EVENTNAME) as unique_event_types\nFROM SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\nWHERE EVENTTIME \u003e= DATEADD(hour, ?, CURRENT_TIMESTAMP())"
+  },
+  "datasource_name": "snowflake"
+}

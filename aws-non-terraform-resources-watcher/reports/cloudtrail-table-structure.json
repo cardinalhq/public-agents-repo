@@ -1,0 +1,30 @@
+{
+  "name": "cloudtrail-table-structure",
+  "text": "What is the structure of the SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE table?",
+  "query_type": "snowflake_sql",
+  "query": "SELECT column_name, data_type, comment\nFROM information_schema.columns\nWHERE table_catalog = 'SAMPLE_DATABASE'\n  AND table_schema = 'SAMPLE_SCHEMA'\n  AND table_name = 'SAMPLE_CLOUDTRAIL_TABLE'\nORDER BY ordinal_position",
+  "status": "private",
+  "meta": {
+    "sql_description": "Show column details (name, data type, comment) for table {table_name} in schema {table_schema} of catalog {table_catalog}",
+    "sql_flow_diagram": "flowchart TD\n    Q[\"Question: What is the structure of the SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE table?\"]\n    T1[(\"information_schema.columns\")]\n    F1{\"Filter: table_catalog = 'SAMPLE_DATABASE'\u003cbr/\u003eAND table_schema = 'SAMPLE_SCHEMA'\u003cbr/\u003eAND table_name = 'SAMPLE_CLOUDTRAIL_TABLE'\"}\n    S1[\"Select: column_name, data_type, comment\"]\n    O1{\"Order by: ordinal_position\"}\n    R[\"Result: Table structure with\u003cbr/\u003ecolumn names, data types,\u003cbr/\u003eand comments\"]\n    \n    Q --\u003e T1\n    T1 --\u003e F1\n    F1 --\u003e S1\n    S1 --\u003e O1\n    O1 --\u003e R",
+    "sql_placeholders": [
+      {
+        "name": "table_catalog",
+        "original_value": "SAMPLE_DATABASE",
+        "type": "string"
+      },
+      {
+        "name": "table_schema",
+        "original_value": "SAMPLE_SCHEMA",
+        "type": "string"
+      },
+      {
+        "name": "table_name",
+        "original_value": "SAMPLE_CLOUDTRAIL_TABLE",
+        "type": "string"
+      }
+    ],
+    "sql_template": "SELECT column_name, data_type, comment\nFROM information_schema.columns\nWHERE table_catalog = ?\n  AND table_schema = ?\n  AND table_name = ?\nORDER BY ordinal_position"
+  },
+  "datasource_name": "snowflake"
+}

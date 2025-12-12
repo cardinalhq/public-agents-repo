@@ -1,0 +1,95 @@
+{
+  "name": "aws-terraform-drift-detection",
+  "text": "What AWS resource modifications were made outside of Terraform in the past hour?",
+  "query_type": "snowflake_sql",
+  "query": "SELECT \n    EVENTTIME,\n    EVENTNAME,\n    EVENTSOURCE,\n    USERIDENTITY:userName::STRING as aws_username,\n    USERIDENTITY:principalId::STRING as principal_id,\n    USERIDENTITY:arn::STRING as user_arn,\n    USERAGENT,\n    AWSREGION,\n    RESOURCES,\n    REQUESTPARAMETERS\nFROM SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\nWHERE EVENTTIME \u003e= DATEADD(hour, -1, CURRENT_TIMESTAMP())\n  AND ERRORCODE IS NULL  -- Only successful operations\n  AND (USERAGENT NOT LIKE '%terraform%' AND USERAGENT NOT LIKE '%Terraform%')  -- Exclude Terraform\n  AND EVENTNAME IN (\n    'CreateNetworkInterface', 'DeleteNetworkInterface', 'CreateTags', \n    'UpdateService', 'RegisterTaskDefinition', 'DeregisterTaskDefinition',\n    'DeregisterTargets', 'RegisterTargets', 'ExecuteChangeSet', 'CreateChangeSet',\n    'RunTask', 'CreateLogStream'\n  )\nORDER BY EVENTTIME DESC\nLIMIT 50",
+  "status": "private",
+  "meta": {
+    "sql_description": "Show CloudTrail events from the last {lookback_hours} hours, excluding user agents matching {exclude_agent_pattern_1} or {exclude_agent_pattern_2}, filtering for specific event names ({event_name_1} through {event_name_12}), limited to {max_results} rows",
+    "sql_flow_diagram": "flowchart TD\n    Q[\"Question: What AWS resource modifications were\u003cbr/\u003emade outside of Terraform in the past hour?\"]\n    T1[(\"SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\")]\n    \n    F1{\"Time Filter:\u003cbr/\u003eEVENTTIME \u003e= last 1 hour\"}\n    F2{\"Success Filter:\u003cbr/\u003eERRORCODE IS NULL\"}\n    F3{\"Exclude Terraform:\u003cbr/\u003eUSERAGENT NOT LIKE '%terraform%'\"}\n    F4{\"Event Type Filter:\u003cbr/\u003eEVENTNAME IN (CreateNetworkInterface,\u003cbr/\u003eDeleteNetworkInterface, CreateTags,\u003cbr/\u003eUpdateService, etc.)\"}\n    \n    SEL[\"SELECT:\u003cbr/\u003eEVENTTIME, EVENTNAME, EVENTSOURCE,\u003cbr/\u003eaws_username, principal_id, user_arn,\u003cbr/\u003eUSERAGENT, AWSREGION,\u003cbr/\u003eRESOURCES, REQUESTPARAMETERS\"]\n    \n    SORT{\"ORDER BY EVENTTIME DESC\u003cbr/\u003eLIMIT 50\"}\n    \n    R[\"Result: Non-Terraform AWS resource\u003cbr/\u003emodifications from past hour\"]\n    \n    Q --\u003e T1\n    T1 --\u003e F1\n    F1 --\u003e F2\n    F2 --\u003e F3\n    F3 --\u003e F4\n    F4 --\u003e SEL\n    SEL --\u003e SORT\n    SORT --\u003e R",
+    "sql_placeholders": [
+      {
+        "name": "lookback_hours",
+        "original_value": "-1",
+        "type": "int"
+      },
+      {
+        "name": "exclude_agent_pattern_1",
+        "original_value": "%terraform%",
+        "type": "string"
+      },
+      {
+        "name": "exclude_agent_pattern_2",
+        "original_value": "%Terraform%",
+        "type": "string"
+      },
+      {
+        "name": "event_name_1",
+        "original_value": "CreateNetworkInterface",
+        "type": "string"
+      },
+      {
+        "name": "event_name_2",
+        "original_value": "DeleteNetworkInterface",
+        "type": "string"
+      },
+      {
+        "name": "event_name_3",
+        "original_value": "CreateTags",
+        "type": "string"
+      },
+      {
+        "name": "event_name_4",
+        "original_value": "UpdateService",
+        "type": "string"
+      },
+      {
+        "name": "event_name_5",
+        "original_value": "RegisterTaskDefinition",
+        "type": "string"
+      },
+      {
+        "name": "event_name_6",
+        "original_value": "DeregisterTaskDefinition",
+        "type": "string"
+      },
+      {
+        "name": "event_name_7",
+        "original_value": "DeregisterTargets",
+        "type": "string"
+      },
+      {
+        "name": "event_name_8",
+        "original_value": "RegisterTargets",
+        "type": "string"
+      },
+      {
+        "name": "event_name_9",
+        "original_value": "ExecuteChangeSet",
+        "type": "string"
+      },
+      {
+        "name": "event_name_10",
+        "original_value": "CreateChangeSet",
+        "type": "string"
+      },
+      {
+        "name": "event_name_11",
+        "original_value": "RunTask",
+        "type": "string"
+      },
+      {
+        "name": "event_name_12",
+        "original_value": "CreateLogStream",
+        "type": "string"
+      },
+      {
+        "name": "max_results",
+        "original_value": "50",
+        "type": "int"
+      }
+    ],
+    "sql_template": "SELECT \n    EVENTTIME,\n    EVENTNAME,\n    EVENTSOURCE,\n    USERIDENTITY:userName::STRING as aws_username,\n    USERIDENTITY:principalId::STRING as principal_id,\n    USERIDENTITY:arn::STRING as user_arn,\n    USERAGENT,\n    AWSREGION,\n    RESOURCES,\n    REQUESTPARAMETERS\nFROM SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\nWHERE EVENTTIME \u003e= DATEADD(hour, ?, CURRENT_TIMESTAMP())\n  AND ERRORCODE IS NULL\n  AND (USERAGENT NOT LIKE ? AND USERAGENT NOT LIKE ?)\n  AND EVENTNAME IN (\n    ?, ?, ?, \n    ?, ?, ?,\n    ?, ?, ?, ?,\n    ?, ?\n  )\nORDER BY EVENTTIME DESC\nLIMIT ?"
+  },
+  "datasource_name": "snowflake"
+}

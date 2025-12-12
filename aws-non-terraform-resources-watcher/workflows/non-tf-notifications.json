@@ -1,0 +1,49 @@
+{
+  "objective": "Monitor CloudTrail data to detect AWS resource modifications made by human users outside of Terraform within a time period and send Slack notifications to responsible users",
+  "steps": [
+    "Execute Report: `snowflake-cloudtrail-tables` to identify available CloudTrail tables in database",
+    "Query CloudTrail data for resource modification events made by human IAM users in the specified time period",
+    "Extract username by parsing principalId field (SPLIT_PART function) since userName field is NULL for SSO users",
+    "Filter by UserAgent to include only human tools (Mozilla, Safari, Chrome, Firefox, aws-cli)",
+    "Exclude Terraform-initiated changes using UserAgent field",
+    "Exclude AWS service-initiated changes by filtering out AWSServiceRole ARNs",
+    "Exclude read-only operations (Get, Describe, List, Lookup) using blacklist pattern",
+    "Filter for successful operations only (no error codes)",
+    "Extract AWS username and resource details from filtered CloudTrail events",
+    "Check if any human-initiated manual changes were found",
+    "If changes found: Retrieve Slack users list",
+    "If changes found: Map AWS username to Slack user identifier",
+    "If changes found: Send direct message to each user with resource details and reminder about using Terraform",
+    "If no changes found: End workflow without sending notifications"
+  ],
+  "guardrails": [
+    "Focus on specific CloudTrail table in database",
+    "Only query data from specified time period (not complete history)",
+    "Only detect resource creation, deletion, and modification events",
+    "Use blacklist pattern for read-only operations instead of whitelist for event types",
+    "Extract username from principalId field using SPLIT_PART function (not userName field)",
+    "Filter by UserAgent to include only human tools (browsers, CLI)",
+    "Exclude changes made through Terraform by checking UserAgent field",
+    "Only capture changes by human IAM users, not service roles or automated processes",
+    "Exclude AWS service roles by filtering ARN field for AWSServiceRole pattern",
+    "Only capture successful operations by filtering out events with error codes",
+    "Exclude read-only operations",
+    "Exclude AWS service operations",
+    "Only send notifications when human-initiated changes are detected",
+    "Verify reliable mapping between AWS usernames and Slack identifiers before sending notifications"
+  ],
+  "reports": [
+    "cloudtrail-table-structure",
+    "snowflake-cloudtrail-tables",
+    "aws-console-drift-detection",
+    "aws-manual-resource-changes",
+    "cloudtrail-latest-events",
+    "cloudtrail-write-events",
+    "aws-terraform-drift-detection",
+    "cloudtrail-tables-query",
+    "cloudtrail-data-tables"
+  ],
+  "knowledge": [],
+  "trigger": "schedule",
+  "schedule": "0 * * * *"
+}

@@ -1,0 +1,1 @@
+watches for resources that were created from the console/UI instead of terraform. Sends the user a slack message reminding them to use terraform.

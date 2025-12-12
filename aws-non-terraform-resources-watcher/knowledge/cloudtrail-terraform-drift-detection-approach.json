@@ -1,0 +1,11 @@
+{
+  "name": "cloudtrail-terraform-drift-detection-approach",
+  "title": "CloudTrail Terraform Drift Detection - Correct Approach",
+  "description": "## Detecting Non-Terraform Human Changes in CloudTrail\n\n**Goal**: Identify AWS resource modifications made by humans through Console/CLI that bypass Terraform.\n\n### ❌ WRONG APPROACH (Don't Use):\n- Whitelisting specific event names (misses most actions)\n- Using `USERIDENTITY:userName` for SSO users (returns NULL)\n- Not filtering by UserAgent\n- Including AWS service roles in results\n\n### ✅ CORRECT APPROACH:\n\n**1. Filter by UserAgent (Human Tools Only)**\n```sql\nWHERE (\n  USERAGENT LIKE 'Mozilla%'  -- Web browsers\n  OR USERAGENT LIKE '%Safari%'\n  OR USERAGENT LIKE '%Chrome%'\n  OR USERAGENT LIKE '%Firefox%'\n  OR USERAGENT LIKE 'aws-cli%'  -- AWS CLI\n)\n-- Exclude Terraform\nAND USERAGENT NOT LIKE '%terraform%'\nAND USERAGENT NOT LIKE '%Terraform%'\n```\n\n**2. Exclude Read-Only Operations (Blacklist Pattern)**\n```sql\nAND EVENTNAME NOT LIKE 'Describe%'\nAND EVENTNAME NOT LIKE 'Get%'\nAND EVENTNAME NOT LIKE 'List%'\nAND EVENTNAME NOT LIKE 'Lookup%'\nAND EVENTNAME NOT IN ('AssumeRole', 'AssumeRoleWithSAML', 'Decrypt', 'ConsoleLogin')\n```\n\n**3. Extract Username Properly**\n```sql\nSPLIT_PART(USERIDENTITY:principalId::STRING, ':', 2) as aws_username\n```\n\n**4. Filter Successful Operations Only**\n```sql\nAND ERRORCODE IS NULL\n```\n\n**5. Exclude AWS Service Roles**\n```sql\nAND USERIDENTITY:arn::STRING NOT LIKE '%AWSServiceRole%'\n```\n\n### Why This Works:\n- **Catches ALL write operations** (not just whitelisted ones)\n- **Properly identifies SSO users** via principalId parsing\n- **Filters by human tools** (browsers, CLI) not application SDKs\n- **Excludes automation** (Terraform, service roles, internal AWS processes)\n- **Flexible and maintainable** (blacklist is smaller than whitelist)",
+  "scope_tags": {
+    "datasource_name": [
+      "snowflake"
+    ]
+  },
+  "status": "private"
+}

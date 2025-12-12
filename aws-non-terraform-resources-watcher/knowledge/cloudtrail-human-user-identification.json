@@ -1,0 +1,11 @@
+{
+  "name": "cloudtrail-human-user-identification",
+  "title": "CloudTrail Human User Identification Pattern",
+  "description": "## Identifying Human Users in CloudTrail Events\n\n**Problem**: Human users authenticated via SSO/SAML have NULL in USERIDENTITY:userName field.\n\n**Solution**: Extract username from principalId field using SPLIT_PART\n\n### Username Extraction:\n```sql\nSPLIT_PART(USERIDENTITY:principalId::STRING, ':', 2) as aws_username\n```\n\n### User Type Patterns:\n- **Human SSO Users**: `USERIDENTITY:type = 'AssumedRole'` with principalId like `AROA...:human_username`\n- **IAM Users**: `USERIDENTITY:type = 'IAMUser'` with userName populated\n- **Service Roles**: `USERIDENTITY:type = 'AssumedRole'` with principalId like `AROA...:ServiceName` or hex UUIDs\n- **AWS Services**: ARN contains 'AWSServiceRole'\n\n### Human User Agent Patterns:\n- Web Console: `Mozilla`, `Safari`, `Chrome`, `Firefox`\n- AWS CLI: `aws-cli`\n- SDKs: `aws-sdk`, `Boto3`, `aws-sdk-go`\n\n### Service User Agent Patterns (EXCLUDE):\n- `*.amazonaws.com` (e.g., ecs.amazonaws.com)\n- `AWS Internal`\n- `Docker library-import`\n- `awslambda-worker`\n\n### Session Context:\n- `USERIDENTITY:sessionContext:sessionIssuer:userName` - Contains the role name\n- For human users via SSO: typically starts with `AWSReservedSSO_`",
+  "scope_tags": {
+    "datasource_name": [
+      "snowflake"
+    ]
+  },
+  "status": "private"
+}

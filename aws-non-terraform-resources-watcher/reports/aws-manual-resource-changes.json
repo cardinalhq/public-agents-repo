@@ -1,0 +1,24 @@
+{
+  "name": "aws-manual-resource-changes",
+  "text": "What AWS resource modifications were made by human users outside of Terraform in the past hour?",
+  "query_type": "snowflake_sql",
+  "query": "SELECT \n    EVENTTIME,\n    EVENTNAME,\n    EVENTSOURCE,\n    SPLIT_PART(USERIDENTITY:principalId::STRING, ':', 2) as aws_username,\n    USERIDENTITY:type::STRING as user_type,\n    USERIDENTITY:principalId::STRING as principal_id,\n    USERIDENTITY:arn::STRING as user_arn,\n    USERIDENTITY:sessionContext:sessionIssuer:userName::STRING as assumed_role_name,\n    USERAGENT,\n    AWSREGION,\n    RESOURCES,\n    REQUESTPARAMETERS\nFROM SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\nWHERE EVENTTIME \u003e= DATEADD(hour, -1, CURRENT_TIMESTAMP())\n  AND ERRORCODE IS NULL  -- Only successful operations\n  AND (USERAGENT NOT LIKE '%terraform%' AND USERAGENT NOT LIKE '%Terraform%')  -- Exclude Terraform\n  -- Exclude read-only operations\n  AND EVENTNAME NOT LIKE 'Describe%'\n  AND EVENTNAME NOT LIKE 'Get%'\n  AND EVENTNAME NOT LIKE 'List%'\n  AND EVENTNAME NOT LIKE 'Lookup%'\n  AND EVENTNAME NOT IN ('AssumeRole', 'AssumeRoleWithSAML', 'Decrypt')  -- Exclude auth/crypto operations\n  -- Include only human users (AssumedRole with human pattern, or IAMUser)\n  AND (\n    (USERIDENTITY:type::STRING = 'AssumedRole' \n     AND USERIDENTITY:principalId::STRING LIKE 'AROA%:%'  -- Has a session name after colon\n     AND USERIDENTITY:principalId::STRING NOT LIKE '%:ECS_%'  -- Exclude ECS service sessions\n     AND USERIDENTITY:principalId::STRING NOT LIKE '%:ecs-%'  -- Exclude ECS service sessions\n     AND USERIDENTITY:principalId::STRING NOT LIKE '%:AutoScaling-%'  -- Exclude AutoScaling sessions\n     AND USERIDENTITY:arn::STRING NOT LIKE '%AWSServiceRole%'  -- Exclude AWS service roles\n    )\n    OR USERIDENTITY:type::STRING = 'IAMUser'\n  )\n  -- Exclude service user agents\n  AND USERAGENT NOT LIKE '%.amazonaws.com'\n  AND USERAGENT NOT LIKE 'AWS Internal'\nORDER BY EVENTTIME DESC\nLIMIT 100",
+  "status": "private",
+  "meta": {
+    "sql_description": "Show successful AWS CloudTrail events from human users (excluding read-only operations and automated tools) for the last {lookback_hours} hours, limited to {max_results} records",
+    "sql_placeholders": [
+      {
+        "name": "lookback_hours",
+        "original_value": "-1",
+        "type": "int"
+      },
+      {
+        "name": "max_results",
+        "original_value": "100",
+        "type": "int"
+      }
+    ],
+    "sql_template": "SELECT \n    EVENTTIME,\n    EVENTNAME,\n    EVENTSOURCE,\n    SPLIT_PART(USERIDENTITY:principalId::STRING, ':', 2) as aws_username,\n    USERIDENTITY:type::STRING as user_type,\n    USERIDENTITY:principalId::STRING as principal_id,\n    USERIDENTITY:arn::STRING as user_arn,\n    USERIDENTITY:sessionContext:sessionIssuer:userName::STRING as assumed_role_name,\n    USERAGENT,\n    AWSREGION,\n    RESOURCES,\n    REQUESTPARAMETERS\nFROM SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\nWHERE EVENTTIME \u003e= DATEADD(hour, ?, CURRENT_TIMESTAMP())\n  AND ERRORCODE IS NULL\n  AND (USERAGENT NOT LIKE '%terraform%' AND USERAGENT NOT LIKE '%Terraform%')\n  AND EVENTNAME NOT LIKE 'Describe%'\n  AND EVENTNAME NOT LIKE 'Get%'\n  AND EVENTNAME NOT LIKE 'List%'\n  AND EVENTNAME NOT LIKE 'Lookup%'\n  AND EVENTNAME NOT IN ('AssumeRole', 'AssumeRoleWithSAML', 'Decrypt')\n  AND (\n    (USERIDENTITY:type::STRING = 'AssumedRole' \n     AND USERIDENTITY:principalId::STRING LIKE 'AROA%:%'\n     AND USERIDENTITY:principalId::STRING NOT LIKE '%:ECS_%'\n     AND USERIDENTITY:principalId::STRING NOT LIKE '%:ecs-%'\n     AND USERIDENTITY:principalId::STRING NOT LIKE '%:AutoScaling-%'\n     AND USERIDENTITY:arn::STRING NOT LIKE '%AWSServiceRole%'\n    )\n    OR USERIDENTITY:type::STRING = 'IAMUser'\n  )\n  AND USERAGENT NOT LIKE '%.amazonaws.com'\n  AND USERAGENT NOT LIKE 'AWS Internal'\nORDER BY EVENTTIME DESC\nLIMIT ?"
+  },
+  "datasource_name": "snowflake"
+}

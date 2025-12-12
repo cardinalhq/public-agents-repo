@@ -1,0 +1,12 @@
+{
+  "type": "snowflake",
+  "config": {
+    "account": "your-account-id",
+    "categories": [],
+    "database": "SAMPLE_DATABASE",
+    "role": "SAMPLE_ROLE",
+    "schema": "SAMPLE_SCHEMA",
+    "warehouse": "SAMPLE_WAREHOUSE"
+  },
+  "shared_secrets": true
+}

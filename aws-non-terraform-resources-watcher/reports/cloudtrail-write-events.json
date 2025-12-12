@@ -1,0 +1,65 @@
+{
+  "name": "cloudtrail-write-events",
+  "text": "What are the most common CloudTrail events in the past hour excluding read-only operations?",
+  "query_type": "snowflake_sql",
+  "query": "SELECT \n    EVENTNAME,\n    COUNT(*) as event_count,\n    COUNT(CASE WHEN ERRORCODE IS NULL THEN 1 END) as successful_count,\n    COUNT(CASE WHEN USERAGENT LIKE '%terraform%' OR USERAGENT LIKE '%Terraform%' THEN 1 END) as terraform_count,\n    COUNT(CASE WHEN ERRORCODE IS NULL \n               AND (USERAGENT NOT LIKE '%terraform%' AND USERAGENT NOT LIKE '%Terraform%') \n          THEN 1 END) as non_terraform_successful\nFROM SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\nWHERE EVENTTIME \u003e= DATEADD(hour, -1, CURRENT_TIMESTAMP())\n  AND EVENTNAME NOT LIKE 'Describe%'\n  AND EVENTNAME NOT LIKE 'Get%'\n  AND EVENTNAME NOT LIKE 'List%'\n  AND EVENTNAME NOT LIKE 'Lookup%'\nGROUP BY EVENTNAME\nORDER BY non_terraform_successful DESC, event_count DESC\nLIMIT 20",
+  "status": "private",
+  "meta": {
+    "sql_description": "Show CloudTrail event statistics for the last {lookback_hours} hours, excluding read-only events matching {describe_pattern}, {get_pattern}, {list_pattern}, or {lookup_pattern}, with counts of Terraform usage (matching {terraform_pattern_1} or {terraform_pattern_2}), limited to top {max_results} events by non-Terraform successful operations",
+    "sql_flow_diagram": "flowchart TD\n    Q[\"Question: What are the most common CloudTrail events\u003cbr/\u003ein the past hour excluding read-only operations?\"]\n    T1[(\"SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\")]\n    \n    F1{\"Filter: EVENTTIME \u003e= DATEADD(hour, -1, CURRENT_TIMESTAMP())\"}\n    F2{\"Exclude Read-Only Operations:\u003cbr/\u003eNOT LIKE 'Describe%'\u003cbr/\u003eNOT LIKE 'Get%'\u003cbr/\u003eNOT LIKE 'List%'\u003cbr/\u003eNOT LIKE 'Lookup%'\"}\n    \n    AGG1{\"GROUP BY EVENTNAME\"}\n    \n    CALC1[\"Calculate Metrics:\u003cbr/\u003e- COUNT(*) as event_count\u003cbr/\u003e- Successful count (ERRORCODE IS NULL)\u003cbr/\u003e- Terraform count (USERAGENT check)\u003cbr/\u003e- Non-terraform successful count\"]\n    \n    SORT{\"ORDER BY:\u003cbr/\u003enon_terraform_successful DESC,\u003cbr/\u003eevent_count DESC\"}\n    \n    LIM[\"LIMIT 20\"]\n    \n    R[\"Result: Top 20 most common\u003cbr/\u003enon-read-only CloudTrail events\u003cbr/\u003ewith success and Terraform breakdowns\"]\n    \n    Q --\u003e T1\n    T1 --\u003e F1\n    F1 --\u003e F2\n    F2 --\u003e AGG1\n    AGG1 --\u003e CALC1\n    CALC1 --\u003e SORT\n    SORT --\u003e LIM\n    LIM --\u003e R",
+    "sql_placeholders": [
+      {
+        "name": "terraform_pattern_1",
+        "original_value": "%terraform%",
+        "type": "string"
+      },
+      {
+        "name": "terraform_pattern_2",
+        "original_value": "%Terraform%",
+        "type": "string"
+      },
+      {
+        "name": "terraform_pattern_3",
+        "original_value": "%terraform%",
+        "type": "string"
+      },
+      {
+        "name": "terraform_pattern_4",
+        "original_value": "%Terraform%",
+        "type": "string"
+      },
+      {
+        "name": "lookback_hours",
+        "original_value": "-1",
+        "type": "int"
+      },
+      {
+        "name": "describe_pattern",
+        "original_value": "Describe%",
+        "type": "string"
+      },
+      {
+        "name": "get_pattern",
+        "original_value": "Get%",
+        "type": "string"
+      },
+      {
+        "name": "list_pattern",
+        "original_value": "List%",
+        "type": "string"
+      },
+      {
+        "name": "lookup_pattern",
+        "original_value": "Lookup%",
+        "type": "string"
+      },
+      {
+        "name": "max_results",
+        "original_value": "20",
+        "type": "int"
+      }
+    ],
+    "sql_template": "SELECT \n    EVENTNAME,\n    COUNT(*) as event_count,\n    COUNT(CASE WHEN ERRORCODE IS NULL THEN 1 END) as successful_count,\n    COUNT(CASE WHEN USERAGENT LIKE ? OR USERAGENT LIKE ? THEN 1 END) as terraform_count,\n    COUNT(CASE WHEN ERRORCODE IS NULL \n               AND (USERAGENT NOT LIKE ? AND USERAGENT NOT LIKE ?) \n          THEN 1 END) as non_terraform_successful\nFROM SAMPLE_DATABASE.SAMPLE_SCHEMA.SAMPLE_CLOUDTRAIL_TABLE\nWHERE EVENTTIME \u003e= DATEADD(hour, ?, CURRENT_TIMESTAMP())\n  AND EVENTNAME NOT LIKE ?\n  AND EVENTNAME NOT LIKE ?\n  AND EVENTNAME NOT LIKE ?\n  AND EVENTNAME NOT LIKE ?\nGROUP BY EVENTNAME\nORDER BY non_terraform_successful DESC, event_count DESC\nLIMIT ?"
+  },
+  "datasource_name": "snowflake"
+}
