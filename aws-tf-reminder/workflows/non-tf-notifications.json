@@ -1,7 +1,7 @@
 {
   "objective": "Monitor CloudTrail data to detect AWS resource modifications made by human users outside of Terraform within a time period and send Slack notifications to responsible users",
   "steps": [
-    "Use the MCP `get_query_context` tool to find CloudTrail tables in the configured datasource. If no CloudTrail tables are found in the user's selected tables, inform the user and ask how to proceed - do NOT automatically run discovery queries against information_schema without explicit permission",
+    "Use the MCP `get_query_context` tool to find CloudTrail tables in the configured datasource. If no CloudTrail tables are found, send a Slack notification reporting the configuration issue and exit the workflow - do NOT run discovery queries against information_schema",
     "Query CloudTrail data using Report: `aws-console-drift-detection` as the primary template - this report implements the correct approach for detecting human-initiated changes",
     "Refer to Knowledge: `cloudtrail-terraform-drift-detection-approach` for the correct filtering patterns (UserAgent filtering, blacklist approach for read-only operations)",
     "Refer to Knowledge: `cloudtrail-human-user-identification` for extracting username from principalId field using SPLIT_PART function (required for SSO users where userName is NULL)",
@@ -19,7 +19,7 @@
     "If no changes found: End workflow without sending notifications"
   ],
   "guardrails": [
-    "IMPORTANT: Only query tables configured in datasource categories. If CloudTrail tables are not found, ask the user how to proceed rather than automatically running broad discovery queries",
+    "IMPORTANT: Only query tables configured in datasource categories. If CloudTrail tables are not found, notify via Slack and exit - never run broad discovery queries",
     "Only query data from specified time period (not complete history)",
     "Only detect resource creation, deletion, and modification events",
     "IMPORTANT: Use blacklist pattern for read-only operations (Describe%, Get%, List%, Lookup%) - DO NOT use whitelist for event types as shown in Knowledge: `cloudtrail-terraform-drift-detection-approach`",
