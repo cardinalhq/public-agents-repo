@@ -1,22 +1,39 @@
 {
-  "objective": "Analyze cloud billing data to identify underutilized services and generate cost optimization recommendations",
+  "objective": "Identify underutilized GCP resources and generate cost savings recommendations",
   "steps": [
-    "- Query BigQuery billing data to identify top cost contributors by project",
-    "- Examine Google Cloud Monitoring metrics to determine utilization rates for each service type",
-    "- Calculate utilization percentages for services using CPU, memory, and usage metrics",
-    "- Identify services with utilization below threshold as underutilized",
-    "- Calculate daily costs, projected monthly costs, and potential savings for underutilized services",
-    "- Generate remediation recommendations for each underutilized service",
-    "- Compile findings into actionable cost optimization report with prioritized action items",
-    "- Send concise summary report via Slack to the #alerts-test channel"
+    "Query billing export data to identify top cost contributors by service",
+    "Execute Report: `kafka-sku-details` to get detailed billing breakdown by project, service, and SKU",
+    "Resolve time range for last time period",
+    "If we have compute engine usage, execute report: `compute-engine-utilization` to get Compute Engine CPU utilization metrics",
+    "If we have cloud sql usage, perform the following steps:",
+    "  - execute report: `cloud-sql-cpu-average` to get Cloud SQL CPU utilization metrics",
+    "  - execute Report: `cloud-sql-memory-utilization` to get Cloud SQL memory utilization metrics",
+    "  - execute Report: `cloud-sql-disk-utilization` to get Cloud SQL disk utilization metrics",
+    "If we have kubernetes usage, execute report: `gke-node-cpu-utilization` to get GKE node CPU utilization metrics",
+    "Calculate utilization percentages for each service using collected metrics",
+    "Identify services with utilization below threshold as underutilized",
+    "Calculate daily costs, projected monthly costs, and potential savings for underutilized services",
+    "Generate specific remediation recommendations for each underutilized service",
+    "Compile findings into prioritized cost optimization report with action items"
   ],
   "guardrails": [
-    "- Define underutilized services as those with less than threshold utilization",
-    "- Include specific attributes for each underutilized service: Service, Utilization %, Daily Cost, Projected Monthly Cost, Remediation Recommendation, Savings",
-    "- Generate concise, to-the-point, actionable report",
-    "- Focus on services that show clear underutilization with quantifiable savings potential"
+    "Define underutilized services as those with less than threshold utilization of 10%.",
+    "Include specific attributes for each underutilized service: Service, Utilization %, Daily Cost, Projected Monthly Cost, Remediation Recommendation, Savings",
+    "Generate concise, to-the-point, actionable report",
+    "Focus on services that show clear underutilization with quantifiable savings potential",
+    "Filter billing data to items with daily cost greater than threshold",
+    "Query time period of recent days for current utilization patterns"
   ],
-  "reports": ["gcp-billing-cost-analysis"],
+  "reports": [
+    "kafka-sku-details",
+    "compute-engine-utilization",
+    "cloud-sql-cpu-average",
+    "gke-node-cpu-utilization",
+    "cloud-sql-memory-utilization",
+    "compute-cpu-utilization-weekly",
+    "cloud-sql-disk-utilization"
+  ],
   "knowledge": [],
+  "trigger": "schedule",
   "schedule": "0 0 * * *"
 }

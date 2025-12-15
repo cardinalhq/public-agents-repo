@@ -1,1 +1,16 @@
-Does useful stuff with GCP Billing data
+{
+  "description": "An intelligent GCP cost optimization and billing analysis agent that monitors spending, identifies underutilized resources, and provides actionable recommendations to reduce cloud expenses.",
+  "capabilities": [
+    "Analyze top cost contributors by GCP project, service, and SKU",
+    "Identify daily and weekly spending patterns and trends",
+    "Calculate projected monthly costs based on current usage",
+    "Detect underutilized Compute Engine instances with low CPU utilization",
+    "Analyze Cloud SQL resource utilization (CPU, memory, and disk)",
+    "Monitor GKE node and Kubernetes engine CPU utilization",
+    "Track Managed Kafka cluster resource usage (CPU, memory, limits)",
+    "Find expensive BigQuery queries and explain why they are costly",
+    "Generate underutilization reports with cost savings recommendations",
+    "Provide rightsizing recommendations for overprovisioned resources",
+    "Send automated cost alerts and summaries via Slack"
+  ]
+}
