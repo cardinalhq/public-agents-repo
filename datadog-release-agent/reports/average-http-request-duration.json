@@ -2,7 +2,7 @@
   "name": "average-http-request-duration",
   "text": "Get average HTTP server request duration for {service_name}",
   "query_type": "datadog_metrics",
-  "query": "avg:http.server.request.duration{service:myservice}",
+  "query": "avg:http.server.request.duration{service:{{service_name}}}",
   "status": "private",
   "meta": {
     "provider": "datadog",
@@ -12,7 +12,7 @@
       "base_url": "https://api.us3.datadoghq.com",
       "datasource_type": "datadog",
       "end": "",
-      "query": "avg:http.server.request.duration{service:myservice}",
+      "query": "avg:http.server.request.duration{service:{{service_name}}}",
       "query_type": "aggregate",
       "start": "",
       "step_seconds": 60

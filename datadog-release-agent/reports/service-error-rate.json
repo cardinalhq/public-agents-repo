@@ -2,7 +2,7 @@
   "name": "service-error-rate",
   "text": "Get error rate for {service_name}",
   "query_type": "datadog_metrics",
-  "query": "sum:trace.http.request.errors{service:myservice}.as_count() / sum:trace.http.request.hits{service:myservice}.as_count() * 100",
+  "query": "sum:trace.http.request.errors{service:{{service_name}}}.as_count() / sum:trace.http.request.hits{service:{{service_name}}}.as_count() * 100",
   "status": "private",
   "meta": {
     "provider": "datadog",
@@ -12,7 +12,7 @@
       "base_url": "https://api.us3.datadoghq.com",
       "datasource_type": "datadog",
       "end": "",
-      "query": "sum:trace.http.request.errors{service:myservice}.as_count() / sum:trace.http.request.hits{service:myservice}.as_count() * 100",
+      "query": "sum:trace.http.request.errors{service:{{service_name}}}.as_count() / sum:trace.http.request.hits{service:{{service_name}}}.as_count() * 100",
       "query_type": "aggregate",
       "start": "",
       "step_seconds": 60

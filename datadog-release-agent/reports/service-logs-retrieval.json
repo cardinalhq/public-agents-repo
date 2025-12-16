@@ -2,7 +2,7 @@
   "name": "service-logs-retrieval",
   "text": "Get logs for {service_name}",
   "query_type": "datadog_logs",
-  "query": "service:myservice",
+  "query": "service:{{service_name}}",
   "status": "private",
   "meta": {
     "provider": "datadog",
@@ -13,7 +13,7 @@
       "datasource_type": "datadog",
       "end": "",
       "limit": 1000,
-      "query": "service:myservice",
+      "query": "service:{{service_name}}",
       "query_type": "events",
       "start": ""
     },

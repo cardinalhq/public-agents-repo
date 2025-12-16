@@ -2,7 +2,7 @@
   "name": "service-request-count",
   "text": "Get total request count for {service_name}",
   "query_type": "datadog_metrics",
-  "query": "sum:trace.http.request.hits{service:myservice}.as_count()",
+  "query": "sum:trace.http.request.hits{service:{{service_name}}}.as_count()",
   "status": "private",
   "meta": {
     "provider": "datadog",
@@ -12,7 +12,7 @@
       "base_url": "https://api.us3.datadoghq.com",
       "datasource_type": "datadog",
       "end": "",
-      "query": "sum:trace.http.request.hits{service:myservice}.as_count()",
+      "query": "sum:trace.http.request.hits{service:{{service_name}}}.as_count()",
       "query_type": "aggregate",
       "start": "",
       "step_seconds": 60

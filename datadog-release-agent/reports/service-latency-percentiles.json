@@ -2,7 +2,7 @@
   "name": "service-latency-percentiles",
   "text": "Get P50 and P99 latency for {service_name}",
   "query_type": "datadog_metrics",
-  "query": "p50:trace.http.request.duration{service:myservice}, p99:trace.http.request.duration{service:myservice}",
+  "query": "p50:trace.http.request.duration{service:{{service_name}}}, p99:trace.http.request.duration{service:{{service_name}}}",
   "status": "private",
   "meta": {
     "provider": "datadog",
@@ -12,7 +12,7 @@
       "base_url": "https://api.us3.datadoghq.com",
       "datasource_type": "datadog",
       "end": "",
-      "query": "p50:trace.http.request.duration{service:myservice}, p99:trace.http.request.duration{service:myservice}",
+      "query": "p50:trace.http.request.duration{service:{{service_name}}}, p99:trace.http.request.duration{service:{{service_name}}}",
       "query_type": "aggregate",
       "start": "",
       "step_seconds": 60
