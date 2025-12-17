@@ -1,36 +1,7 @@
 {
   "objective": "Validate a release by comparing telemetry data before and after for a specified service_name and release_time.\n\n",
-  "steps": [
-    "PART 1: LOG ANALYSIS",
-    "- Query logs for the service during pre-release (release_time - N hours) and post-release (release_time + N hours) windows.",
-    "- Count logs by level/status and check for threshold deviation (default 10%) increase in WARN or higher levels post-release.",
-    "- Get pattern counts before and after release to identify changes.",
-    "- Check for patterns that were frequent pre-release but stopped occurring post-release.",
-    "- Check for new error patterns that emerged post-release.",
-    "",
-    "PART 2: METRICS ANALYSIS",
-    "- Find system metrics (CPU, Memory, Network, Disk) and compare before and after release.",
-    "- Check request metrics for sustained drops post-release.",
-    "- Check error metrics for sustained increases post-release.",
-    "- Check latency metrics for sustained increases post-release.",
-    "- For custom metrics, identify critical tags, group by them, and compare pre vs post values.",
-    "",
-    "OUTPUT FORMAT:",
-    "- ALWAYS provide a thumbs up or thumbs down for the release.",
-    "- If thumbs down, provide a summary section for each issue type:",
-    "  - Log Issues: List in tabular form: pattern description, example log line, pre vs post counts, why it matters?",
-    "  - Metric Issues: List in tabular form: metric name, pre vs post comparison, why this change matters?"
-  ],
-  "guardrails": [
-    "Log Analysis Thresholds:",
-    "- Flag if WARN+ log levels increase by more than 20% post-release.",
-    "- Flag patterns that disappeared entirely post-release.",
-    "- Flag new error patterns that appeared post-release.",
-    "",
-    "Metrics Analysis Thresholds:",
-    "- Flag if P50 or P99 post-release has moved at least 1.5x compared to pre-release.",
-    "- Direction of movement should be contextual: increases in errors/latency are bad, decreases in requests are bad."
-  ],
+  "steps": "## Part 1: Log Analysis\n\n1. Query logs for the service during pre-release (`release_time - N hours`) and post-release (`release_time + N hours`) windows\n2. Count logs by level/status and check for threshold deviation (default 10%) increase in WARN or higher levels post-release\n3. Get pattern counts before and after release to identify changes\n4. Check for patterns that were frequent pre-release but stopped occurring post-release\n5. Check for new error patterns that emerged post-release\n\n## Part 2: Metrics Analysis\n\n1. Find system metrics (CPU, Memory, Network, Disk) and compare before and after release\n2. Check request metrics for sustained drops post-release\n3. Check error metrics for sustained increases post-release\n4. Check latency metrics for sustained increases post-release\n5. For custom metrics, identify critical tags, group by them, and compare pre vs post values\n\n## Output Format\n\n- **ALWAYS** provide a thumbs up or thumbs down for the release\n- If thumbs down, provide a summary section for each issue type:\n  - **Log Issues**: List in tabular form: pattern description, example log line, pre vs post counts, why it matters?\n  - **Metric Issues**: List in tabular form: metric name, pre vs post comparison, why this change matters?",
+  "guardrails": "### Log Analysis Thresholds\n\n- Flag if WARN+ log levels increase by **more than 20%** post-release\n- Flag patterns that disappeared entirely post-release\n- Flag new error patterns that appeared post-release\n\n### Metrics Analysis Thresholds\n\n- Flag if P50 or P99 post-release has moved at least **1.5x** compared to pre-release\n- Direction of movement should be contextual: increases in errors/latency are bad, decreases in requests are bad",
   "reports": [
     "service-logs-search",
     "service-logs-retrieval",
