@@ -30,5 +30,6 @@
       }
     ]
   },
-  "datasource_name": "google_cloud_monitoring"
+  "datasource_name": "google_cloud_monitoring",
+  "type": "gcp-monitoring"
 }

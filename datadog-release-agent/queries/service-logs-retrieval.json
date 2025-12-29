@@ -28,5 +28,6 @@
     "query_type": "logs",
     "question_template": "Get logs for {service_name}"
   },
-  "datasource_name": "datadog"
+  "datasource_name": "datadog",
+  "type": "datadog"
 }

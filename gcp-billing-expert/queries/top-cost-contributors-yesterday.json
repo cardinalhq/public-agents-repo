@@ -32,5 +32,6 @@
     ],
     "query_template": "SELECT \n  project.id as project_id,\n  service.description as service_type,\n  sku.description as sku_description,\n  SUM(cost) as total_cost_last_7days,\n  SUM(cost) / 7 as daily_cost,\n  (SUM(cost) / 7) * 30 as projected_monthly_cost,\n  COUNT(*) as cost_entries,\n  location.location as location\nFROM `chip_billing.gcp_billing_export_v1_01D01E_9B88C7_8078BC`\nWHERE cost > {{min_cost}}\n  AND DATE(usage_start_time) >= DATE_SUB(CURRENT_DATE(), INTERVAL {{lookback_days}} DAY)\nGROUP BY project_id, service_type, sku_description, location\nHAVING daily_cost > {{min_daily_cost}}\nORDER BY total_cost_last_7days DESC\nLIMIT {{result_limit}}"
   },
-  "datasource_name": "google_bigquery"
+  "datasource_name": "google_bigquery",
+  "type": "bigquery"
 }

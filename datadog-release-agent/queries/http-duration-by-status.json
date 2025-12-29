@@ -28,5 +28,6 @@
     "query_type": "metrics",
     "question_template": "Average HTTP request duration for {service_name} grouped by response status code"
   },
-  "datasource_name": "datadog"
+  "datasource_name": "datadog",
+  "type": "datadog"
 }

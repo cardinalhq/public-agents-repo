@@ -28,5 +28,6 @@
     "query_type": "metrics",
     "question_template": "Get total request count to {server_name} grouped by client"
   },
-  "datasource_name": "datadog"
+  "datasource_name": "datadog",
+  "type": "datadog"
 }

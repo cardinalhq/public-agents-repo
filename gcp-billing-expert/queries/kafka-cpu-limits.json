@@ -4,5 +4,6 @@
   "query_type": "gcp_monitoring",
   "query": "metric.type=\"managedkafka.googleapis.com/cpu/limit\"",
   "meta": {},
-  "datasource_name": "google_cloud_monitoring"
+  "datasource_name": "google_cloud_monitoring",
+  "type": "gcp-monitoring"
 }

@@ -22,5 +22,6 @@
     "query_template": "metric.type=\"cloudsql.googleapis.com/database/cpu/utilization\"",
     "query_type": "metrics"
   },
-  "datasource_name": "google_cloud_monitoring"
+  "datasource_name": "google_cloud_monitoring",
+  "type": "gcp-monitoring"
 }

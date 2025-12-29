@@ -2,7 +2,7 @@
   "name": "kafka-sku-details",
   "text": "Get detailed information from billing data including available columns",
   "query_type": "bigquery_sql",
-  "query": "SELECT \n  project.id as project_id,\n  service.description as service_type,\n  sku.description as sku_description,\n  labels,\n  system_labels,\n  SUM(cost) as total_cost_7days,\n  SUM(cost) / 7 as daily_cost,\n  SUM(cost) / 7 * 30 as projected_monthly_cost,\n  SUM(usage.amount) as usage_amount,\n  MAX(usage.unit) as usage_unit\nFROM `{billing_export_table}`\nWHERE cost \u003e 0\n  AND DATE(usage_start_time) \u003e= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)\n  AND service.description IN ('Cloud SQL', 'Managed Service for Apache Kafka', 'Compute Engine', 'Cloud Storage', 'BigQuery')\nGROUP BY project_id, service_type, sku_description, labels, system_labels\nORDER BY total_cost_7days DESC\nLIMIT 20",
+  "query": "SELECT \n  project.id as project_id,\n  service.description as service_type,\n  sku.description as sku_description,\n  labels,\n  system_labels,\n  SUM(cost) as total_cost_7days,\n  SUM(cost) / 7 as daily_cost,\n  SUM(cost) / 7 * 30 as projected_monthly_cost,\n  SUM(usage.amount) as usage_amount,\n  MAX(usage.unit) as usage_unit\nFROM `{billing_export_table}`\nWHERE cost > 0\n  AND DATE(usage_start_time) >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)\n  AND service.description IN ('Cloud SQL', 'Managed Service for Apache Kafka', 'Compute Engine', 'Cloud Storage', 'BigQuery')\nGROUP BY project_id, service_type, sku_description, labels, system_labels\nORDER BY total_cost_7days DESC\nLIMIT 20",
   "status": "private",
   "meta": {
     "placeholders": [
@@ -19,7 +19,8 @@
         "type": "string"
       }
     ],
-    "sql_flow_diagram": "flowchart TD\n    Q[\"Question: Get detailed information from billing data including available columns\"]\n    T1[(\"{billing_export_table}\")]\n    F1{\"Filter: cost \u003e 0\"}\n    F2{\"Filter: DATE \u003e= 7 days ago\"}\n    F3{\"Filter: service IN ('Cloud SQL', 'Managed Service for Apache Kafka', 'Compute Engine', 'Cloud Storage', 'BigQuery')\"}\n    AGG{\"GROUP BY project_id, service_type, sku_description, labels, system_labels\"}\n    CALC{\"Calculate: SUM(cost), daily_cost, projected_monthly_cost, SUM(usage.amount), MAX(usage.unit)\"}\n    SORT{\"ORDER BY total_cost_7days DESC\"}\n    LIMIT{\"LIMIT 20\"}\n    R[\"Result: Detailed billing information with cost analysis and usage metrics\"]\n\n    Q --\u003e T1\n    T1 --\u003e F1\n    F1 --\u003e F2\n    F2 --\u003e F3\n    F3 --\u003e AGG\n    AGG --\u003e CALC\n    CALC --\u003e SORT\n    SORT --\u003e LIMIT\n    LIMIT --\u003e R"
+    "sql_flow_diagram": "flowchart TD\n    Q[\"Question: Get detailed information from billing data including available columns\"]\n    T1[(\"{billing_export_table}\")]\n    F1{\"Filter: cost > 0\"}\n    F2{\"Filter: DATE >= 7 days ago\"}\n    F3{\"Filter: service IN ('Cloud SQL', 'Managed Service for Apache Kafka', 'Compute Engine', 'Cloud Storage', 'BigQuery')\"}\n    AGG{\"GROUP BY project_id, service_type, sku_description, labels, system_labels\"}\n    CALC{\"Calculate: SUM(cost), daily_cost, projected_monthly_cost, SUM(usage.amount), MAX(usage.unit)\"}\n    SORT{\"ORDER BY total_cost_7days DESC\"}\n    LIMIT{\"LIMIT 20\"}\n    R[\"Result: Detailed billing information with cost analysis and usage metrics\"]\n\n    Q --> T1\n    T1 --> F1\n    F1 --> F2\n    F2 --> F3\n    F3 --> AGG\n    AGG --> CALC\n    CALC --> SORT\n    SORT --> LIMIT\n    LIMIT --> R"
   },
-  "datasource_name": "google_bigquery"
+  "datasource_name": "google_bigquery",
+  "type": "bigquery"
 }

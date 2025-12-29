@@ -28,5 +28,6 @@
     "query_type": "metrics",
     "question_template": "Get total request count for server {server_name}"
   },
-  "datasource_name": "datadog"
+  "datasource_name": "datadog",
+  "type": "datadog"
 }

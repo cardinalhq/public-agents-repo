@@ -33,5 +33,6 @@
     "query_type": "metrics",
     "question_template": "Get error count for {service_name} grouped by {group_by_dimension}"
   },
-  "datasource_name": "datadog"
+  "datasource_name": "datadog",
+  "type": "datadog"
 }

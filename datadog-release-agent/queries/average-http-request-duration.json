@@ -28,5 +28,6 @@
     "query_type": "metrics",
     "question_template": "Get average HTTP server request duration for {service_name}"
   },
-  "datasource_name": "datadog"
+  "datasource_name": "datadog",
+  "type": "datadog"
 }

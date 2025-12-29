@@ -17,5 +17,6 @@
     ],
     "query_template": "metric.type=\"{{metric_type}}\""
   },
-  "datasource_name": "google_cloud_monitoring"
+  "datasource_name": "google_cloud_monitoring",
+  "type": "gcp-monitoring"
 }
