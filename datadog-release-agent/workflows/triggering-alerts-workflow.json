@@ -1,0 +1,20 @@
+{
+  "objective": "Find alerts that transitioned to triggering state, and check if they are related to this release. ",
+  "steps": [
+    "- Execute script `triggering-alerts` for the input timeframe",
+    "- For each triggering alert, detect if it's related to the service that was released/deployed, or a connected service. ",
+    "- Return list of related alerts "
+  ],
+  "guardrails": [
+    "- Do NOT guess the timeframe, it should be explicitly passed in as `RFC3339` format.",
+    "- To identify whether an alert is related to the released service, use either the service field on the alert payload, or the metric name from the expr.",
+    "- To identify whether an alert is related to a connected service, call the `traces_get_service_graph` tool to get a dependency graph of connected services. "
+  ],
+  "queries": [],
+  "knowledge": [],
+  "workflows": [],
+  "scripts": [
+    "triggering-alerts"
+  ],
+  "trigger": "http"
+}

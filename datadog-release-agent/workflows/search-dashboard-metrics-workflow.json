@@ -1,0 +1,19 @@
+{
+  "objective": "Search dashboards related to a released service and analyze metrics for pre/post release regressions. Generates timeseries comparison charts and posts Slack alerts with visualizations and dashboard links.",
+  "steps": [
+    "- Execute script `search-dashboard-metrics` for the provided service_name with release_time and time_window.",
+    "- If dashboards_found = 0, retry once more (execute the script a second time)."
+  ],
+  "guardrails": [
+    "- service_name must be explicitly provided (do NOT guess)",
+    "- release_time must be in RFC3339 format",
+    "- Send the Dashboard Chart along with the Dashboard URL "
+  ],
+  "queries": [],
+  "knowledge": [],
+  "workflows": [],
+  "scripts": [
+    "search-dashboard-metrics"
+  ],
+  "trigger": "http"
+}

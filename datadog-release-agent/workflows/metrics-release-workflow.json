@@ -1,0 +1,27 @@
+{
+  "objective": "Compare system metrics, error rates, and latency metrics for a service before and after a release at a specific time",
+  "steps": [
+    "1. Call `get-relevant-metric-spec` workflow for the given {service_name} to discover and build metric specifications for the service",
+    "2. Execute and call the script `generate-metric-analysis with:",
+    "    - metric_specs: list of {metric_name, query_expression, analysis_type}",
+    "    - service_name: the service being analyzed",
+    "    - release_time: ISO timestamp of the release",
+    "    - time_window: time window for comparison (default: \"1 hour\")",
+    "4. Return Slack blocks with categorized charts showing post-release increases"
+  ],
+  "guardrails": [
+    "- Charts generated only when P50 or P99 shows post-release increase",
+    "- Use the existing scrip, do not generate a new one each time",
+    "- release_time must be in RFC3339 format",
+    "- Metrics grouped by analysis_type for clear categorization"
+  ],
+  "queries": [],
+  "knowledge": [],
+  "workflows": [
+    "get-relevant-metric-spec"
+  ],
+  "scripts": [
+    "generate-metric-analysis"
+  ],
+  "trigger": "http"
+}

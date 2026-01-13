@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "name": "execute-command",
+  "description": "",
+  "language": "bash",
+  "code": "#!/bin/bash\n\n# Execute arbitrary shell command and capture output\n# Returns JSON with stdout, stderr, exit_code, and success status\n\nrun() {\n  local input=\"$1\"\n  local command=$(echo \"$input\" | jq -r '.command')\n  \n  # Validate command is not empty\n  if [[ -z \"$command\" || \"$command\" == \"null\" ]]; then\n    echo '{\"command\":\"\",\"stdout\":\"\",\"stderr\":\"Error: command parameter is required and cannot be empty\",\"exit_code\":1,\"success\":false}'\n    return 0\n  fi\n  \n  # Execute command and capture outputs\n  local result=$(execute_command \"$command\")\n  \n  echo \"$result\"\n  return 0\n}\n\nexecute_command() {\n  local command=\"$1\"\n  \n  # Create temporary files for stdout and stderr\n  local stdout_file=$(mktemp)\n  local stderr_file=$(mktemp)\n  \n  # Ensure cleanup on exit\n  trap \"rm -f '$stdout_file' '$stderr_file'\" RETURN\n  \n  # Execute command in a subshell, capturing stdout and stderr separately\n  # Use eval to support complex shell syntax (pipes, redirections, etc.)\n  set +e  # Don't exit on command failure\n  eval \"$command\" \u003e \"$stdout_file\" 2\u003e \"$stderr_file\"\n  local exit_code=$?\n  set -e\n  \n  # Read captured outputs\n  local stdout_content=$(cat \"$stdout_file\")\n  local stderr_content=$(cat \"$stderr_file\")\n  \n  # Determine success\n  local success=\"false\"\n  if [[ $exit_code -eq 0 ]]; then\n    success=\"true\"\n  fi\n  \n  # Build JSON response using jq for proper escaping\n  local result=$(jq -n \\\n    --arg cmd \"$command\" \\\n    --arg out \"$stdout_content\" \\\n    --arg err \"$stderr_content\" \\\n    --argjson code \"$exit_code\" \\\n    --argjson succ \"$success\" \\\n    '{\n      \"command\": $cmd,\n      \"stdout\": $out,\n      \"stderr\": $err,\n      \"exit_code\": $code,\n      \"success\": $succ\n    }')\n  \n  echo \"$result\"\n}\n\n# If script is run directly (not sourced), execute the run function\nif [[ \"${BASH_SOURCE[0]}\" == \"${0}\" ]]; then\n  if [[ $# -eq 0 ]]; then\n    echo '{\"command\":\"\",\"stdout\":\"\",\"stderr\":\"Error: No input provided\",\"exit_code\":1,\"success\":false}'\n    exit 0\n  fi\n  run \"$1\"\nfi",
+  "environmentVariables": [],
+  "inputSchema": {
+    "properties": {
+      "command": {
+        "description": "Shell command to execute. Supports pipes, redirections, and complex shell syntax (e.g., 'ls -la | grep txt', 'echo hello \u003e /tmp/test.txt \u0026\u0026 cat /tmp/test.txt')",
+        "type": "string"
+      }
+    },
+    "required": [
+      "command"
+    ],
+    "type": "object"
+  },
+  "execution": {
+    "timeoutSeconds": 30,
+    "workingDirectory": "workspace"
+  },
+  "createdAt": "2026-01-03T00:49:20Z",
+  "updatedAt": "2026-01-03T00:49:20Z"
+}

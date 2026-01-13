@@ -1,0 +1,33 @@
+{
+  "objective": "Generate a list of metric specification objects for a service, where each specification includes the metric name, available tags, analysis type (system, RED, or custom/business), and a query expression",
+  "steps": [
+    "### Step 1",
+    "Identify the target service for metric discovery and specification generation.",
+    "### Step 2",
+    "Execute the `get-metrics-for-service` script to get all available metrics for the service. ",
+    "### Step 3",
+    "Execute `datadog_metrics_get_label_metadata` for each discovered metric to retrieve detailed information about available tags and their values.",
+    "### Step 4",
+    "Classify each metric into analysis types: SYSTEM (infrastructure metrics like CPU, memory), RED (Request/Error/Duration metrics for service health), or CUSTOM (application-specific business metrics).",
+    "### Step 5",
+    "Generate query expressions for each metric following these rules: for SYSTEM and RED metrics, use simple queries with service filter and group by {env}; for CUSTOM metrics, include important business dimensions and filter by {env=prod} plus other relevant tags.",
+    "### Step 6",
+    "Structure the output as metric specification objects containing metric_name, tags array, analysis_type, query_expression, and description fields."
+  ],
+  "guardrails": [
+    "Do not create a script - provide structured data output only",
+    "For SYSTEM and RED metrics, use simple query expressions with service filter and filter by {env=prod}",
+    "For CUSTOM metrics, include relevant business dimensions and group by {env} plus other relevant tags in query expressions",
+    "Use appropriate aggregation functions: avg for duration/latency metrics, sum with as_count() for count/request metrics",
+    "Follow datadog metrics query standards for example .as_count() comes after the by clause",
+    "Filter queries using service tag or appropriate identifier for the target service",
+    "Include all discovered tags in the specification even if not used in the basic query expression"
+  ],
+  "queries": [],
+  "knowledge": [],
+  "workflows": [],
+  "scripts": [
+    "get-metrics-for-service"
+  ],
+  "trigger": "http"
+}

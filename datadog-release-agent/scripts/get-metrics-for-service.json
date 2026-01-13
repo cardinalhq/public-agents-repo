@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "name": "get-metrics-for-service",
+  "description": "Gets metric names and their tags emitted by a given service",
+  "language": "python",
+  "code": "\"\"\"\nFetch metric names for a given service using the Datadog API.\n\nEnvironment Variables:\n    DATADOG_SITE    - Datadog site (e.g., us3.datadoghq.com)\n    DATADOG_API_KEY - Datadog API key\n    DATADOG_APP_KEY - Datadog Application key\n\nInput (JSON via stdin):\n    {\"service\": \"checkoutservice\", \"timestamp\": 1767662591}\n\nOutput (JSON):\n    {\"metrics\": [\"metric1\", \"metric2\", ...]}\n\"\"\"\n\nimport json\nimport os\nimport sys\nimport time\nfrom urllib.parse import urlencode\n\nimport requests\n\n\ndef eprintf(*args, **kwargs):\n    \"\"\"Print to stderr for debugging.\"\"\"\n    print(*args, file=sys.stderr, **kwargs)\n\n\ndef run(input: dict) -\u003e dict:\n    \"\"\"Process the input and return a result.\"\"\"\n    eprintf(f\"[DEBUG] Input received: {input}\")\n\n    service_name = input.get(\"service_name\", \"\")\n    from_timestamp = input.get(\"timestamp\")\n    eprintf(f\"[DEBUG] service_name={service_name}, from_timestamp={from_timestamp}\")\n\n    # Get credentials from environment\n    datadog_site = os.environ.get(\"DATADOG_SITE\", \"\")\n    api_key = os.environ.get(\"DATADOG_API_KEY\", \"\")\n    app_key = os.environ.get(\"DATADOG_APP_KEY\", \"\")\n    eprintf(f\"[DEBUG] DATADOG_SITE={datadog_site}\")\n    eprintf(f\"[DEBUG] DATADOG_API_KEY={'***' if api_key else '(not set)'}\")\n    eprintf(f\"[DEBUG] DATADOG_APP_KEY={'***' if app_key else '(not set)'}\")\n\n    if not datadog_site or not api_key or not app_key:\n        eprintf(\"[DEBUG] Missing required environment variables\")\n        return {\"metrics\": [], \"error\": \"Missing required environment variables\"}\n\n    if not service_name:\n        eprintf(\"[DEBUG] Missing 'service' in input\")\n        return {\"metrics\": [], \"error\": \"Missing 'service' in input\"}\n\n    # Default to 1 hour ago if no timestamp provided\n    if from_timestamp is None:\n        from_timestamp = int(time.time()) - 3600\n        eprintf(f\"[DEBUG] Using default timestamp: {from_timestamp}\")\n\n    # Build the API URL\n    base_url = f\"https://api.{datadog_site}/api/v1/metrics\"\n    params = {\n        \"from\": from_timestamp,\n        \"tag_filter\": f\"service:{service_name}\",\n    }\n    url = f\"{base_url}?{urlencode(params)}\"\n    eprintf(f\"[DEBUG] Request URL: {url}\")\n\n    # Set up headers with authentication\n    headers = {\n        \"DD-API-KEY\": api_key,\n        \"DD-APPLICATION-KEY\": app_key,\n        \"Accept\": \"application/json\",\n    }\n\n    # Make the request\n    try:\n        eprintf(\"[DEBUG] Making request...\")\n        response = requests.get(url, headers=headers)\n        eprintf(f\"[DEBUG] Response status: {response.status_code}\")\n        response.raise_for_status()\n        data = response.json()\n        metrics = data.get(\"metrics\", [])\n        eprintf(f\"[DEBUG] Found {len(metrics)} metrics\")\n        return {\"metrics\": metrics}\n    except requests.exceptions.RequestException as e:\n        eprintf(f\"[DEBUG] Request error: {e}\")\n        return {\"metrics\": [], \"error\": str(e)}\n\n\nif __name__ == \"__main__\":\n    eprintf(\"[DEBUG] Reading input from stdin...\")\n    data = json.load(sys.stdin)\n    out = run(data)\n    eprintf(f\"[DEBUG] Output: {out}\")\n    print(json.dumps(out))\n\n",
+  "environmentVariables": [],
+  "inputSchema": {
+    "properties": {
+      "service_name": {
+        "description": "Service name to get metrics for",
+        "type": "string"
+      },
+      "timestamp": {
+        "description": "Timestamp in epoch seconds (e.g. 1767662591)",
+        "type": "number"
+      }
+    },
+    "required": [
+      "service_name",
+      "timestamp"
+    ],
+    "type": "object"
+  },
+  "dependencies": {
+    "enabled": true,
+    "manager": "pip",
+    "specText": "requests\u003e=2.28.0",
+    "installPolicy": "on_first_run",
+    "installScope": "per_script",
+    "cacheEnabled": false,
+    "lastInstall": {
+      "status": "success",
+      "installedAt": "2026-01-06T23:02:03Z",
+      "cacheKey": "2aec6d01f17af74de3a5f260ca6c5d764187ef024219519d1fe79274b61b43c6",
+      "durationMs": 3663
+    }
+  },
+  "execution": {
+    "timeoutSeconds": 30,
+    "workingDirectory": "workspace"
+  },
+  "createdAt": "2026-01-06T22:52:04Z",
+  "updatedAt": "2026-01-06T23:05:40Z"
+}
