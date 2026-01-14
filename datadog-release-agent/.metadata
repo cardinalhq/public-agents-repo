@@ -24,6 +24,10 @@
     {
       "name": "datadog",
       "type": "datadog"
+    },
+    {
+      "name": "slack",
+      "type": "slack"
     }
   ]
 }
